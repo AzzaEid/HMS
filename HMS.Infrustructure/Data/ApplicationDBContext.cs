@@ -1,5 +1,6 @@
 ﻿using HMS.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace HMS.Infrustructure.Data
 {//IdentityDbContext<User, Role, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
@@ -17,20 +18,10 @@ namespace HMS.Infrustructure.Data
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Bill>()
-                .HasOne(b => b.Prescription)
-                .WithMany(p => p.Bills)
-                .HasForeignKey(b => b.PrescriptionID)
-                .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Bill>()
-                .Property(b => b.Amount)
-                .HasPrecision(18, 4); // adjust precision and scale as needed
 
-            modelBuilder.Entity<Medication>()
-                .Property(m => m.Price)
-                .HasPrecision(18, 4); // adjust as appropriate
 
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

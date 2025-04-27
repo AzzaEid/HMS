@@ -53,6 +53,7 @@ With a strong focus on:
 |:---|:---|
 | **Patient** | Has many Appointments, Prescriptions, and Bills |
 | **Doctor** | Has many Appointments and Prescriptions |
+| **Department** | Has many Doctors, Managed by one Doctor (ManagerDoctor) |
 | **Appointment** | Belongs to a Patient and a Doctor |
 | **Prescription** | Belongs to a Patient and a Doctor, Contains many Medications |
 | **Medication** | Can belong to many Prescriptions |
@@ -86,6 +87,14 @@ With a strong focus on:
 - `GET /api/doctors/{id}`
 - `PUT /api/doctors/{id}`
 - `DELETE /api/doctors/{id}`
+
+### Departments
+
+- `POST /api/departments`
+- `GET /api/departments`
+- `GET /api/departments/{id}`
+- `PUT /api/departments/{id}`
+- `DELETE /api/departments/{id}`
 
 ### Appointments
 
@@ -156,4 +165,3 @@ You will cover and implement:
 
 This project is designed not just to **practice**, but to simulate **real-world backend development** with a professional architecture that is scalable, testable, and maintainable.  
 By completing this system, you'll master a huge set of backend engineering concepts and build a **very strong portfolio piece**! 💪✨
-

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HMS.Data.Entities.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HMS.Data.Entities.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HMS.Data.Entities
 {
@@ -15,6 +11,18 @@ namespace HMS.Data.Entities
 
         public int SpecialtyId { get; set; }
         public Specialty Specialty { get; set; }
+
+        // department the doctor working in  
+        [ForeignKey(nameof(Department))]
+        public int DepartmentId { get; set; }
+
+        [InverseProperty(nameof(Department.Doctors))]
+        public Department Department { get; set; }
+
+        // department the doctor has managed
+        [InverseProperty(nameof(Department.ManagerDoctor))]
+        public Department? ManagedDepartment { get; set; }
+
         public List<Appointment> Appointments { get; set; }
         public List<Prescription> Prescriptions { get; set; }
     }

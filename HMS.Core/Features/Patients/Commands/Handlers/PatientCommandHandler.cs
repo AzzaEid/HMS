@@ -3,6 +3,7 @@ using HMS.Core.Features.Patients.Commands.Modles;
 using HMS.Core.Resources;
 using HMS.Data.Entities;
 using HMS.Service.Abstracts;
+using Mapster;
 using MediatR;
 using Microsoft.Extensions.Localization;
 
@@ -22,14 +23,7 @@ namespace HMS.Core.Features.Patients.Commands.Handlers
 
         public async Task<Response<int>> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
         {
-            var patient = new Patient
-            {
-                NameEn = request.Name,
-                Age = request.Age,
-                Gender = request.Gender,
-                ContactNumber = request.ContactNumber,
-                Address = request.Address
-            };
+            var patient = request.Adapt<Patient>();
 
             var result = await _patientService.CreatePatientAsync(patient);
             return Created(result.Id);
@@ -42,12 +36,14 @@ namespace HMS.Core.Features.Patients.Commands.Handlers
             if (patient == null)
                 return NotFound<bool>($"Patient with ID {request.Id} not found.");
 
-            patient.NameEn = request.Name;
+            patient.NameEn = request.NameEn;
+            patient.NameAr = request.NameAr;
             patient.Age = request.Age;
             patient.Gender = request.Gender;
             patient.ContactNumber = request.ContactNumber;
             patient.Address = request.Address;
 
+            // we can just use this: request.Adapt(patient);
             await _patientService.UpdatePatientAsync(patient);
             return Success(true);
         }

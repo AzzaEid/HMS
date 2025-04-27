@@ -7,7 +7,8 @@ namespace HMS.Core.Features.Patients.Commands.Modles
     public class UpdatePatientCommand : IRequest<Response<bool>>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string NameAr { get; set; }
+        public string NameEn { get; set; }
         public int Age { get; set; }
         public Gender Gender { get; set; }
         public string ContactNumber { get; set; }

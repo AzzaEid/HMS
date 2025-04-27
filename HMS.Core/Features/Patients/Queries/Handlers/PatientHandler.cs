@@ -28,7 +28,9 @@ namespace HMS.Core.Features.Patients.Queries.Handlers
         {
             var patients = await _patientService.GetAllPatientsAsync();
             var patientsListMapper = patients.Adapt<List<GetPatientListDto>>();
-            return Success(patientsListMapper);
+            var result = Success(patientsListMapper);
+            result.Meta = new { Count = patientsListMapper.Count() };
+            return result;
         }
 
         public async Task<Response<GetPatientDetailDto>> Handle(GetPatientByIdQuery request, CancellationToken cancellationToken)
@@ -44,7 +46,7 @@ namespace HMS.Core.Features.Patients.Queries.Handlers
 
         public async Task<PaginatedResult<GetPatientPaginatedListResponse>> Handle(GetPatientPaginatedListQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Patient, GetPatientPaginatedListResponse>> expression = p => new GetPatientPaginatedListResponse(p.Id, p.NameEn, p.Age, p.Gender, p.ContactNumber, p.Address);
+            Expression<Func<Patient, GetPatientPaginatedListResponse>> expression = p => new GetPatientPaginatedListResponse(p.Id, p.Localize(p.NameAr, p.NameEn), p.Age, p.Gender, p.ContactNumber, p.Address);
             //var querable = _patientService.GetAllPatientsQueryable();
             var filter = _patientService.FilterPatientPaginatedQuerable(request.OrderBy, request.Search);
             var pagedList = await filter.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);

@@ -1,11 +1,6 @@
 ﻿using HMS.Core.Features.Patients.Queries.Results;
 using HMS.Data.Entities;
 using Mapster;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HMS.Core.Mapping.Patients
 {
@@ -14,7 +9,21 @@ namespace HMS.Core.Mapping.Patients
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<Patient, GetPatientListDto>()
-                  .Map(dest => dest.PatientID, src => src.Id);
+                  .Map(dest => dest.PatientID, src => src.Id)
+                  .Map(dest => dest.Name,
+                   src => src.Localize(src.NameAr, src.NameEn));
+            // if inherit from LocalizableEntity
+            //.Map(dest => dest.Name, src => src.GetLocalized());
+
+            config.NewConfig<Patient, GetPatientDetailDto>()
+                  .Map(dest => dest.Name,
+                   src => src.Localize(src.NameAr, src.NameEn));
+
+            config.NewConfig<Patient, GetPatientPaginatedListResponse>()
+                  .Map(dest => dest.PatientID, src => src.Id)
+                  .Map(dest => dest.Name,
+                   src => src.Localize(src.NameAr, src.NameEn));
+
         }
     }
 }
