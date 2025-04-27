@@ -1,36 +1,55 @@
-﻿using Azure;
-using HMS.Core.Bases;
+﻿using HMS.Core.Bases;
 using HMS.Core.Features.Patients.Queries.Models;
 using HMS.Core.Features.Patients.Queries.Results;
+using HMS.Core.Wrappers;
 using HMS.Data.Entities;
 using HMS.Service.Abstracts;
-using HMS.Service.Implementations;
 using Mapster;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HMS.Core.Bases;
+using System.Linq.Expressions;
 
 namespace HMS.Core.Features.Patients.Queries.Handlers
 {
-    public class PatientHandler : ResponseHandler, IRequestHandler<GetPatientListQuery, Bases.Response<List<GetPatientListDto>>>
+    public class PatientHandler : ResponseHandler, IRequestHandler<GetPatientListQuery, Response<List<GetPatientListDto>>>,
+                                                   IRequestHandler<GetPatientByIdQuery, Response<GetPatientDetailDto>>,
+                                                   IRequestHandler<GetPatientPaginatedListQuery, PaginatedResult<GetPatientPaginatedListResponse>>
+
     {
         private readonly IPatientService _patientService;
 
-        public PatientHandler( IPatientService patientService) 
+        public PatientHandler(IPatientService patientService)
         {
             _patientService = patientService;
         }
 
-        public async Task<Bases.Response<List<GetPatientListDto>>> Handle(GetPatientListQuery request, CancellationToken cancellationToken)
+        public async Task<Response<List<GetPatientListDto>>> Handle(GetPatientListQuery request, CancellationToken cancellationToken)
         {
             var patients = await _patientService.GetAllPatientsAsync();
             var patientsListMapper = patients.Adapt<List<GetPatientListDto>>();
             return Success(patientsListMapper);
         }
+
+        public async Task<Response<GetPatientDetailDto>> Handle(GetPatientByIdQuery request, CancellationToken cancellationToken)
+        {
+            var patient = await _patientService.GetPatientByIdAsync(request.Id);
+
+            if (patient == null)
+                return NotFound<GetPatientDetailDto>($"Patient with ID {request.Id} not found.");
+
+            var patientDto = patient.Adapt<GetPatientDetailDto>();
+            return Success(patientDto);
+        }
+
+        public async Task<PaginatedResult<GetPatientPaginatedListResponse>> Handle(GetPatientPaginatedListQuery request, CancellationToken cancellationToken)
+        {
+            Expression<Func<Patient, GetPatientPaginatedListResponse>> expression = p => new GetPatientPaginatedListResponse(p.Id, p.Name, p.Age, p.Gender, p.ContactNumber, p.Address);
+            //var querable = _patientService.GetAllPatientsQueryable();
+            var filter = _patientService.FilterPatientPaginatedQuerable(request.OrderBy, request.Search);
+            var pagedList = await filter.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            return pagedList;
+
+        }
     }
+
 }
+

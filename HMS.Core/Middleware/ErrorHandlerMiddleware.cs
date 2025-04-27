@@ -33,8 +33,8 @@ namespace HMS.Core.Middleware
                 {
                     case BadRequestException e:
                         responseModel.Message = error.Message;
-                        responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;
-                        response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
+                        responseModel.StatusCode = HttpStatusCode.BadRequest;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         responseModel.Errors = e.Errors;
                         break;
                     case UnauthorizedAccessException e:

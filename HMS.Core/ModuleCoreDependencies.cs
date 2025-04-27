@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using HMS.Core.Bases;
 using HMS.Core.Behavior;
 using Mapster;
 using MediatR;
@@ -18,7 +17,6 @@ namespace HMS.Core
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddTransient<ResponseHandler>();
             return services;
         }
 

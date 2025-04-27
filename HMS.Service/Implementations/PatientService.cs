@@ -1,11 +1,7 @@
 ﻿using HMS.Data.Entities;
+using HMS.Data.Helper;
 using HMS.Infrustructure.Abstract;
 using HMS.Service.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HMS.Service.Implementations
 {
@@ -13,7 +9,7 @@ namespace HMS.Service.Implementations
     {
         private readonly IPatientRepository _patientRepository;
 
-        public PatientService(IPatientRepository patientRepository) 
+        public PatientService(IPatientRepository patientRepository)
         {
             _patientRepository = patientRepository;
         }
@@ -43,6 +39,31 @@ namespace HMS.Service.Implementations
             {
                 await _patientRepository.DeleteAsync(patient);
             }
+        }
+
+        public IQueryable<Patient> GetAllPatientsQueryable()
+        {
+            return _patientRepository.GetTableNoTracking().AsQueryable();
+        }
+
+        public IQueryable<Patient> FilterPatientPaginatedQuerable(PatientOrderingEnum order, string? search)
+        {
+            var queryble = _patientRepository.GetTableNoTracking().AsQueryable();
+            if (search != null)
+            {
+                queryble = queryble.Where(x => x.Name.Contains(search) || x.Address.Contains(search));
+            }
+            queryble = order switch
+            {
+                PatientOrderingEnum.Name => queryble.OrderBy(x => x.Name),
+                PatientOrderingEnum.Address => queryble.OrderBy(x => x.Address),
+                PatientOrderingEnum.Age => queryble.OrderBy(x => x.Age),
+                PatientOrderingEnum.ContactNumber => queryble.OrderBy(x => x.ContactNumber),
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(order),
+                    $"Invalid ordering option: {order}. Please provide a valid value from the {nameof(PatientOrderingEnum)}.")
+            };
+            return queryble;
         }
     }
 }

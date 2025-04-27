@@ -1,5 +1,4 @@
 ﻿using HMS.API.Base;
-using HMS.Core.Bases;
 using HMS.Core.Features.Patients.Commands.Modles;
 using HMS.Core.Features.Patients.Queries.Models;
 using HMS.Data.Exceptions;
@@ -11,11 +10,7 @@ namespace HMS.API.Controllers
     [ApiController]
     public class PatientsController : AppControllerBase
     {
-        private readonly ResponseHandler _responseHandler;
-        public PatientsController(ResponseHandler responseHandler)
-        {
-            _responseHandler = responseHandler;
-        }
+
 
         [HttpGet]
         //  [Authorize(Roles = "Admin,Doctor")]
@@ -51,6 +46,14 @@ namespace HMS.API.Controllers
         {
             var result = await Mediator.Send(new DeletePatientCommand { Id = id });
             return NewResult(result);
+        }
+
+        [HttpGet("api/Patients/Paginated")]
+
+        public async Task<IActionResult> Paginated([FromQuery] GetPatientPaginatedListQuery query)
+        {
+            var response = await Mediator.Send(query);
+            return Ok(response);
         }
 
     }

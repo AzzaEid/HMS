@@ -1,9 +1,5 @@
 ﻿using HMS.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HMS.Data.Helper;
 
 namespace HMS.Service.Abstracts
 {
@@ -14,5 +10,7 @@ namespace HMS.Service.Abstracts
         Task<Patient> CreatePatientAsync(Patient patient);
         Task UpdatePatientAsync(Patient patient);
         Task DeletePatientAsync(int id);
+        public IQueryable<Patient> GetAllPatientsQueryable();
+        public IQueryable<Patient> FilterPatientPaginatedQuerable(PatientOrderingEnum order, string? search);
     }
 }
