@@ -51,11 +51,11 @@ namespace HMS.Service.Implementations
             var queryble = _patientRepository.GetTableNoTracking().AsQueryable();
             if (search != null)
             {
-                queryble = queryble.Where(x => x.Name.Contains(search) || x.Address.Contains(search));
+                queryble = queryble.Where(x => x.NameEn.Contains(search) || x.Address.Contains(search));
             }
             queryble = order switch
             {
-                PatientOrderingEnum.Name => queryble.OrderBy(x => x.Name),
+                PatientOrderingEnum.Name => queryble.OrderBy(x => x.NameEn),
                 PatientOrderingEnum.Address => queryble.OrderBy(x => x.Address),
                 PatientOrderingEnum.Age => queryble.OrderBy(x => x.Age),
                 PatientOrderingEnum.ContactNumber => queryble.OrderBy(x => x.ContactNumber),

@@ -1,11 +1,13 @@
 ﻿using HMS.Core.Bases;
 using HMS.Core.Features.Patients.Queries.Models;
 using HMS.Core.Features.Patients.Queries.Results;
+using HMS.Core.Resources;
 using HMS.Core.Wrappers;
 using HMS.Data.Entities;
 using HMS.Service.Abstracts;
 using Mapster;
 using MediatR;
+using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 
 namespace HMS.Core.Features.Patients.Queries.Handlers
@@ -16,8 +18,8 @@ namespace HMS.Core.Features.Patients.Queries.Handlers
 
     {
         private readonly IPatientService _patientService;
-
-        public PatientHandler(IPatientService patientService)
+        public PatientHandler(IPatientService patientService,
+                               IStringLocalizer<SharedResources> stringLocalizer) : base(stringLocalizer)
         {
             _patientService = patientService;
         }
@@ -34,7 +36,7 @@ namespace HMS.Core.Features.Patients.Queries.Handlers
             var patient = await _patientService.GetPatientByIdAsync(request.Id);
 
             if (patient == null)
-                return NotFound<GetPatientDetailDto>($"Patient with ID {request.Id} not found.");
+                return NotFound<GetPatientDetailDto>(_stringLocalizer[SharedResourcesKeys.NotFound]);
 
             var patientDto = patient.Adapt<GetPatientDetailDto>();
             return Success(patientDto);
@@ -42,7 +44,7 @@ namespace HMS.Core.Features.Patients.Queries.Handlers
 
         public async Task<PaginatedResult<GetPatientPaginatedListResponse>> Handle(GetPatientPaginatedListQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Patient, GetPatientPaginatedListResponse>> expression = p => new GetPatientPaginatedListResponse(p.Id, p.Name, p.Age, p.Gender, p.ContactNumber, p.Address);
+            Expression<Func<Patient, GetPatientPaginatedListResponse>> expression = p => new GetPatientPaginatedListResponse(p.Id, p.NameEn, p.Age, p.Gender, p.ContactNumber, p.Address);
             //var querable = _patientService.GetAllPatientsQueryable();
             var filter = _patientService.FilterPatientPaginatedQuerable(request.OrderBy, request.Search);
             var pagedList = await filter.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);

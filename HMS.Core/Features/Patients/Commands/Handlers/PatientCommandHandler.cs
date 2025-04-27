@@ -1,8 +1,10 @@
 ﻿using HMS.Core.Bases;
 using HMS.Core.Features.Patients.Commands.Modles;
+using HMS.Core.Resources;
 using HMS.Data.Entities;
 using HMS.Service.Abstracts;
 using MediatR;
+using Microsoft.Extensions.Localization;
 
 namespace HMS.Core.Features.Patients.Commands.Handlers
 {
@@ -12,7 +14,8 @@ namespace HMS.Core.Features.Patients.Commands.Handlers
     {
         private readonly IPatientService _patientService;
 
-        public PatientCommandHandler(IPatientService patientService)
+        public PatientCommandHandler(IPatientService patientService,
+                                     IStringLocalizer<SharedResources> localizer) : base(localizer)
         {
             _patientService = patientService;
         }
@@ -21,7 +24,7 @@ namespace HMS.Core.Features.Patients.Commands.Handlers
         {
             var patient = new Patient
             {
-                Name = request.Name,
+                NameEn = request.Name,
                 Age = request.Age,
                 Gender = request.Gender,
                 ContactNumber = request.ContactNumber,
@@ -39,7 +42,7 @@ namespace HMS.Core.Features.Patients.Commands.Handlers
             if (patient == null)
                 return NotFound<bool>($"Patient with ID {request.Id} not found.");
 
-            patient.Name = request.Name;
+            patient.NameEn = request.Name;
             patient.Age = request.Age;
             patient.Gender = request.Gender;
             patient.ContactNumber = request.ContactNumber;
