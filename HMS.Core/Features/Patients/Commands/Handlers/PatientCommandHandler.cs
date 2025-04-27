@@ -1,0 +1,63 @@
+﻿using HMS.Core.Bases;
+using HMS.Core.Features.Patients.Commands.Modles;
+using HMS.Data.Entities;
+using HMS.Service.Abstracts;
+using MediatR;
+
+namespace HMS.Core.Features.Patients.Commands.Handlers
+{
+    public class PatientCommandHandler : ResponseHandler, IRequestHandler<CreatePatientCommand, Response<int>>,
+                                                          IRequestHandler<DeletePatientCommand, Response<bool>>,
+                                                          IRequestHandler<UpdatePatientCommand, Response<bool>>
+    {
+        private readonly IPatientService _patientService;
+
+        public PatientCommandHandler(IPatientService patientService)
+        {
+            _patientService = patientService;
+        }
+
+        public async Task<Response<int>> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
+        {
+            var patient = new Patient
+            {
+                Name = request.Name,
+                Age = request.Age,
+                Gender = request.Gender,
+                ContactNumber = request.ContactNumber,
+                Address = request.Address
+            };
+
+            var result = await _patientService.CreatePatientAsync(patient);
+            return Created(result.Id);
+        }
+
+        public async Task<Response<bool>> Handle(UpdatePatientCommand request, CancellationToken cancellationToken)
+        {
+            var patient = await _patientService.GetPatientByIdAsync(request.Id);
+
+            if (patient == null)
+                return NotFound<bool>($"Patient with ID {request.Id} not found.");
+
+            patient.Name = request.Name;
+            patient.Age = request.Age;
+            patient.Gender = request.Gender;
+            patient.ContactNumber = request.ContactNumber;
+            patient.Address = request.Address;
+
+            await _patientService.UpdatePatientAsync(patient);
+            return Success(true);
+        }
+
+        public async Task<Response<bool>> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
+        {
+            var patient = await _patientService.GetPatientByIdAsync(request.Id);
+
+            if (patient == null)
+                return NotFound<bool>($"Patient with ID {request.Id} not found.");
+
+            await _patientService.DeletePatientAsync(request.Id);
+            return Success(true);
+        }
+    }
+}

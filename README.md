@@ -1,113 +1,159 @@
 
-# 🏥 Hospital Management System (HMS) - Web API  
+
+# 🏥 Hospital Management System - HMS (Clean Architecture - ASP.NET Core Web API)
 >#### **Status: In Progress 🚧**
 
-## 📌 Project Overview
+## 📑 About the Project
 
-The **Hospital Management System (HMS)** is a RESTful Web API built with **.NET 8** and **Entity Framework Core**, designed to manage hospital operations such as:
-
-- Patient and doctor management  
-- Appointment scheduling  
-- Prescription and medication tracking  
-- Automatic billing  
-- Role-based access with secure authentication  
-
-This project started **a Web API**, following a clean architecture pattern with **Dependency Injection**, **JWT Authentication**, and **Swagger** for documentation.
+This project is a **Medical Management System API** designed using **Clean Architecture Principles** and built with **ASP.NET Core Web API**.  
+It simulates a real-world clinic/hospital environment by managing **Patients**, **Doctors**, **Appointments**, **Prescriptions**, **Medications**, and **Billing**.  
+It demonstrates advanced backend engineering techniques covering **authentication, authorization, pagination, ordering, localization, validation, error handling, logging**, and more.
 
 ---
 
-## 🚀 Features Overview 
+## 🎯 Main Features
 
-### ✅ Core Modules & Endpoints
-
-| Module | Description |
-|--------|-------------|
-| **Authentication & Authorization** | JWT login & registration with roles: Admin, Doctor, Patient |
-| **Patients** | CRUD operations for managing patient records |
-| **Doctors** | CRUD operations + specialty management |
-| **Appointments** | Schedule, view, and cancel appointments |
-| **Prescriptions** | Issue and manage prescriptions (linked to appointments & medications) |
-| **Medications** | Manage inventory and prices of medications |
-| **Billing** | Auto-generate bills when prescriptions are issued |
-
----
-
-## 🛡️ Authentication & Authorization
-
-- **JWT Authentication** implemented with secure token generation.
-- **Role-based access control** for:
-  - `Admin`: Full access to all modules
-  - `Doctor`: Manage own patients and prescriptions
-  - `Patient`: View personal data, appointments, and bills
+- Full **CRUD Operations** for all entities
+- **Authentication & Authorization** with JWT, Roles, and Claims
+- **Role-based Access Control** (Admin, Doctor, Patient)
+- **Automated Email Handling** (confirmation, password reset)
+- **Secure Passwords & Refresh Tokens**
+- **Logging** using Serilog (Database + Console)
+- **Localization** (multi-language support)
+- **Pagination**, **Ordering**, **Filtering**
+- **Exception Handling** with Middlewares
+- **Entity Relationships** fully implemented
 
 ---
 
-## 📂 API Endpoints Summary
+## 🏗️ Project Architecture
 
-### 🔐 Auth
-- `POST /api/auth/register` – Register new users  
-- `POST /api/auth/login` – Login and receive JWT  
+This project follows a **Clean Architecture** pattern, separating concerns into:
 
-### 👤 Patient Management
+- **Domain Layer**: Entities and Core Logic
+- **Application Layer**: Use Cases, DTOs, Interfaces
+- **Infrastructure Layer**: Database Access, External Services
+- **Presentation Layer**: Web API Controllers
+
+With a strong focus on:
+
+- Dependency Injection (DI)
+- Mediator Pattern
+- Repository & Unit of Work Pattern
+- Fluent Validation
+- AutoMapper
+- Custom Response Wrappers
+- API Versioning & Routing Customization
+
+---
+
+## 🧱 Entities and Their Relationships
+
+| Entity | Relationships |
+|:---|:---|
+| **Patient** | Has many Appointments, Prescriptions, and Bills |
+| **Doctor** | Has many Appointments and Prescriptions |
+| **Appointment** | Belongs to a Patient and a Doctor |
+| **Prescription** | Belongs to a Patient and a Doctor, Contains many Medications |
+| **Medication** | Can belong to many Prescriptions |
+| **Bill** | Belongs to a Prescription |
+
+---
+
+## 🔥 Authentication & Authorization
+
+- **Register** (with roles Admin, Doctor, Patient): `POST /api/auth/register`
+- **Login** (JWT + Refresh Token): `POST /api/auth/login`
+- **Role and Claim Based Authorization**
+- **Password Reset** and **Email Confirmation** with encryption.
+
+---
+
+## 📋 API Endpoints Overview
+
+### Patients
+
 - `POST /api/patients`
 - `GET /api/patients`
 - `GET /api/patients/{id}`
 - `PUT /api/patients/{id}`
 - `DELETE /api/patients/{id}`
 
-### 👨‍⚕️ Doctor Management
+### Doctors
+
 - `POST /api/doctors`
 - `GET /api/doctors`
 - `GET /api/doctors/{id}`
 - `PUT /api/doctors/{id}`
 - `DELETE /api/doctors/{id}`
 
-### 📅 Appointment Management
+### Appointments
+
 - `POST /api/appointments`
-- `GET /api/appointments?patientId={id}` or `?doctorId={id}`
+- `GET /api/appointments?patientId={id}`
+- `GET /api/appointments?doctorId={id}`
 - `DELETE /api/appointments/{id}`
 
-### 💊 Prescription Management
+### Prescriptions
+
 - `POST /api/prescriptions`
 - `GET /api/prescriptions`
 - `GET /api/prescriptions/{id}`
 - `PUT /api/prescriptions/{id}`
 
-### 🧪 Medication Management
+### Medications
+
 - `POST /api/medications`
 - `GET /api/medications`
 - `PUT /api/medications/{id}`
 - `DELETE /api/medications/{id}`
 
-### 💵 Billing Management
+### Billing
+
 - `GET /api/bills`
 - `GET /api/bills?patientId={id}`
 - `PUT /api/bills/{id}`
 
 ---
 
-## ⚙️ Technologies Used
+## ⚙️ Technologies and Topics Covered
 
-- ASP.NET Core 8 Web API  
-- Entity Framework Core (Code-First, SQL Server)  
-- JWT Authentication  
-- Role-based Authorization  
-- Swagger / Swashbuckle  
-- Dependency Injection  
+You will cover and implement:
+
+- **ASP.NET Core Web API 8**
+- **Entity Framework Core** (Code-First, Migrations, Fluent API)
+- **SQL Server**
+- **Clean Architecture Principles**
+- **AutoMapper**
+- **Fluent Validation**
+- **Repository Pattern** & **Generic Repository**
+- **Custom Response Wrappers**
+- **Global Exception Handling Middleware**
+- **JWT Authentication & Authorization**
+- **Role & Claim-based Authorization**
+- **Refresh Tokens**
+- **Localization (Multi-language Support)**
+- **Email Sending with MailKit & SMTP**
+- **Password Reset via Email**
+- **Logging with Serilog**
+- **Git & GitHub** (Project versioning and push)
+- **Working with Stored Procedures, Views, Functions**
+- **Image Uploads and Management**
 
 ---
 
-## 📌 Status & To-Do
+## 🛠️ Setup Instructions
 
-- [x] Set up API structure  
-- [x] Patient & Doctor CRUD  
-- [x] Appointment module  
-- [ ] JWT authentication  
-- [ ] Billing logic automation  
-- [ ] Admin dashboard features  
+1. Clone the repository
+2. Setup your **SQL Server Database** and configure connection string
+3. Run the migrations
+4. Run the API
+5. Use Swagger or Postman to test the endpoints
 
 ---
 
-## 📬 Contributions
+## 🚀 Final Words
 
-This project is under active development. Contributions, suggestions, or feedback are welcome!
+This project is designed not just to **practice**, but to simulate **real-world backend development** with a professional architecture that is scalable, testable, and maintainable.  
+By completing this system, you'll master a huge set of backend engineering concepts and build a **very strong portfolio piece**! 💪✨
+

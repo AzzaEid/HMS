@@ -1,8 +1,9 @@
-using HMS.Infrustructure;
-using HMS.Service;
-using HMS.Infrustructure.Data;
-using Microsoft.EntityFrameworkCore;
 using HMS.Core;
+using HMS.Core.Middleware;
+using HMS.Infrustructure;
+using HMS.Infrustructure.Data;
+using HMS.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace HMS.API
 {
@@ -39,6 +40,8 @@ namespace HMS.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
 
             app.UseHttpsRedirection();
 

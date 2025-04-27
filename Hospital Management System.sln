@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital Management System", "Hospital Management System\Hospital Management System.csproj", "{4DBB5DF3-4221-4D24-A688-FE43BAA15E0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Data", "HMS.Data\HMS.Data.csproj", "{AB023DA0-DE00-4B48-B8A6-A485986E9C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Data", "HMS.Data\HMS.Data.csproj", "{AB023DA0-DE00-4B48-B8A6-A485986E9C0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Core", "HMS.Core\HMS.Core.csproj", "{53FA4A31-DBF1-471E-854E-8487DDF9C001}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Core", "HMS.Core\HMS.Core.csproj", "{53FA4A31-DBF1-471E-854E-8487DDF9C001}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Infrustructure", "HMS.Infrustructure\HMS.Infrustructure.csproj", "{34750F07-BA2C-41D3-B4B4-3AF781BFFE64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Infrustructure", "HMS.Infrustructure\HMS.Infrustructure.csproj", "{34750F07-BA2C-41D3-B4B4-3AF781BFFE64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Service", "HMS.Service\HMS.Service.csproj", "{E131C9CF-7ECD-4642-9AB2-615FEBA9A6CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Service", "HMS.Service\HMS.Service.csproj", "{E131C9CF-7ECD-4642-9AB2-615FEBA9A6CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.API", "HMS.API\HMS.API.csproj", "{2C303960-DA96-4A62-AE0D-6EF1D67A3AB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.API", "HMS.API\HMS.API.csproj", "{2C303960-DA96-4A62-AE0D-6EF1D67A3AB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4DBB5DF3-4221-4D24-A688-FE43BAA15E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DBB5DF3-4221-4D24-A688-FE43BAA15E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DBB5DF3-4221-4D24-A688-FE43BAA15E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DBB5DF3-4221-4D24-A688-FE43BAA15E0D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB023DA0-DE00-4B48-B8A6-A485986E9C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AB023DA0-DE00-4B48-B8A6-A485986E9C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB023DA0-DE00-4B48-B8A6-A485986E9C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU

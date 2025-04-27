@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HMS.Data.Entities.Identity;
 
 namespace HMS.Data.Entities
 {
-    public class Patient : Person
+    public class Patient : User
     {
 
         public string Address { get; set; }
