@@ -13,7 +13,7 @@ namespace HMS.API.Controllers
 
 
         [HttpGet]
-        //  [Authorize(Roles = "Admin,Doctor")]
+        //  [Authorize(Roles = "Admin,Doctors")]
         public async Task<ActionResult> GetAllPatients()
         {
             var respose = await Mediator.Send(new GetPatientListQuery());
@@ -48,7 +48,7 @@ namespace HMS.API.Controllers
             return NewResult(result);
         }
 
-        [HttpGet("api/Patients/Paginated")]
+        [HttpGet("paginated")]
 
         public async Task<IActionResult> Paginated([FromQuery] GetPatientPaginatedListQuery query)
         {

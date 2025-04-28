@@ -4,7 +4,7 @@ using Mapster;
 
 namespace HMS.Core.Mapping.Patients
 {
-    public class PatientMappingConfig : IRegister
+    public class DoctorMappingConfig : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {

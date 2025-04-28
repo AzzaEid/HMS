@@ -93,13 +93,14 @@ namespace HMS.Infrustructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ManagerDoctorId")
+                    b.Property<int?>("ManagerDoctorId")
                         .HasColumnType("int");
 
                     b.HasKey("DepartmentId");
 
                     b.HasIndex("ManagerDoctorId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ManagerDoctorId] IS NOT NULL");
 
                     b.ToTable("Department");
                 });
@@ -137,7 +138,7 @@ namespace HMS.Infrustructure.Migrations
                     b.Property<string>("NameEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SpecialtyId")
+                    b.Property<int?>("SpecialtyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -302,8 +303,7 @@ namespace HMS.Infrustructure.Migrations
                     b.HasOne("HMS.Data.Entities.Doctor", "ManagerDoctor")
                         .WithOne("ManagedDepartment")
                         .HasForeignKey("HMS.Data.Entities.Department", "ManagerDoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ManagerDoctor");
                 });
@@ -319,8 +319,7 @@ namespace HMS.Infrustructure.Migrations
                     b.HasOne("HMS.Data.Entities.Specialty", "Specialty")
                         .WithMany()
                         .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Department");
 

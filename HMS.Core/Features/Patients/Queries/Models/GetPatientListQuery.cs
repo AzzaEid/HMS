@@ -1,8 +1,6 @@
-﻿using MediatR;
-using HMS.Data;
-using HMS.Data.Entities;
+﻿using HMS.Core.Bases;
 using HMS.Core.Features.Patients.Queries.Results;
-using HMS.Core.Bases;
+using MediatR;
 
 namespace HMS.Core.Features.Patients.Queries.Models
 {

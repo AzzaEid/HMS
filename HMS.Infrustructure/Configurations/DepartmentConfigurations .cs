@@ -19,10 +19,17 @@ namespace HMS.Infrustructure.Configurations
                 .HasForeignKey(doc => doc.DepartmentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //builder.HasOne(d => d.ManagerDoctor)
+            //    .WithOne(doc => doc.ManagedDepartment)
+            //    .HasForeignKey<Department>(d => d.ManagerDoctorId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(d => d.ManagerDoctor)
-                .WithMany()
-                .HasForeignKey(d => d.ManagerDoctorId)
+                .WithOne(doc => doc.ManagedDepartment)
+                .HasForeignKey<Department>(d => d.ManagerDoctorId)
+                   .HasPrincipalKey<Doctor>(d => d.Id)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

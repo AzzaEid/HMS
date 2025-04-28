@@ -8,12 +8,12 @@ namespace HMS.Data.Entities
         public string DepartmentName { get; set; }
 
         [ForeignKey(nameof(ManagerDoctor))]
-        public int ManagerDoctorId { get; set; }
+        public int? ManagerDoctorId { get; set; }
 
-        [InverseProperty(nameof(Doctor.ManagedDepartment))]
-        public Doctor ManagerDoctor { get; set; }
+        //   [InverseProperty(nameof(Doctor.ManagedDepartment))]
+        public Doctor? ManagerDoctor { get; set; } = null;
 
-        [InverseProperty(nameof(Doctor.Department))]
-        public List<Doctor> Doctors { get; set; }
+        //[InverseProperty(nameof(Doctor.Department))]
+        public List<Doctor> Doctors { get; set; } = new List<Doctor>();
     }
 }
