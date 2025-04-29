@@ -1,12 +1,10 @@
 ﻿using HMS.Core.Bases;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace HMS.API.Base
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class AppControllerBase : ControllerBase
     {

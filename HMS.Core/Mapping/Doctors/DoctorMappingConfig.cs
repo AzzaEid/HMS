@@ -14,9 +14,10 @@ namespace HMS.Core.Mapping.Doctors
             // if inherit from LocalizableEntity
             //.Map(dest => dest.Name, src => src.GetLocalized());
 
-            config.NewConfig<Doctor, GetDoctorDetailDto>()
+            config.NewConfig<Doctor, GetDoctorListDto>()
                   .Map(dest => dest.Name,
                    src => src.Localize(src.NameAr, src.NameEn));
+
 
 
         }
