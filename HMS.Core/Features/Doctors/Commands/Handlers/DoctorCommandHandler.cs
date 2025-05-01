@@ -27,10 +27,6 @@ namespace HMS.Core.Features.Doctors.Commands.Handlers
             {
                 NameAr = request.NameAr,
                 NameEn = request.NameEn,
-                Age = request.Age,
-                Gender = request.Gender,
-                ContactNumber = request.ContactNumber,
-                Email = request.Email,
                 SpecialtyId = request.SpecialtyId >= 0 || request.SpecialtyId == null ? request.SpecialtyId : null,
                 DepartmentId = request.DepartmentId,
             };
@@ -48,11 +44,6 @@ namespace HMS.Core.Features.Doctors.Commands.Handlers
 
             doctor.NameAr = request.NameAr;
             doctor.NameEn = request.NameEn;
-
-            doctor.Age = request.Age;
-            doctor.Gender = request.Gender;
-            doctor.ContactNumber = request.ContactNumber;
-            doctor.Email = request.Email;
             doctor.SpecialtyId = request.SpecialtyId;
 
             await _doctorService.UpdateDoctorAsync(doctor);

@@ -126,6 +126,9 @@
   <data name="Deleted" xml:space="preserve">
     <value>The item has been deleted.</value>
   </data>
+  <data name="DeletedFailed" xml:space="preserve">
+    <value>Deleted Failed</value>
+  </data>
   <data name="IsExist" xml:space="preserve">
     <value>The item already exists.</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="MinLengthis2" xml:space="preserve">
     <value>The minimum length is 100 characters.</value>
+  </data>
+  <data name="nn" xml:space="preserve">
+    <value>nn</value>
   </data>
   <data name="NotEmpty" xml:space="preserve">
     <value>This field cannot be empty.</value>

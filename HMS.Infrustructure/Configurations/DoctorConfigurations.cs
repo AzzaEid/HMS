@@ -10,10 +10,6 @@ namespace HMS.Infrustructure.Configurations
         {
             builder.HasKey(d => d.Id);
 
-            builder.Property(d => d.Email)
-                .IsRequired()
-                .HasMaxLength(255);
-
             builder.HasOne(d => d.Specialty)
                 .WithMany()
                 .HasForeignKey(d => d.SpecialtyId)

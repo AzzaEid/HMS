@@ -1,14 +1,9 @@
-﻿using HMS.Data.Entities.Identity;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HMS.Data.Entities
 {
-    public class Doctor : User
+    public class Doctor : Person
     {
-        [EmailAddress]
-        public string Email { get; set; }
-
         public int? SpecialtyId { get; set; }
         public Specialty? Specialty { get; set; }
 

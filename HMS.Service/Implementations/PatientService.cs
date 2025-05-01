@@ -57,8 +57,8 @@ namespace HMS.Service.Implementations
             {
                 PatientOrderingEnum.Name => queryble.OrderBy(x => x.NameEn),
                 PatientOrderingEnum.Address => queryble.OrderBy(x => x.Address),
-                PatientOrderingEnum.Age => queryble.OrderBy(x => x.Age),
-                PatientOrderingEnum.ContactNumber => queryble.OrderBy(x => x.ContactNumber),
+                //    PatientOrderingEnum.Age => queryble.OrderBy(x => x.Age),
+                //    PatientOrderingEnum.ContactNumber => queryble.OrderBy(x => x.ContactNumber),
                 _ => throw new ArgumentOutOfRangeException(
                     nameof(order),
                     $"Invalid ordering option: {order}. Please provide a valid value from the {nameof(PatientOrderingEnum)}.")

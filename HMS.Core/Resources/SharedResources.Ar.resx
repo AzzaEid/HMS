@@ -126,6 +126,9 @@
   <data name="Deleted" xml:space="preserve">
     <value>تم حذف العنصر بنجاح.</value>
   </data>
+  <data name="DeletedFailed" xml:space="preserve">
+    <value>حذف العنصر فشل</value>
+  </data>
   <data name="IsExist" xml:space="preserve">
     <value>العنصر موجود بالفعل.</value>
   </data>

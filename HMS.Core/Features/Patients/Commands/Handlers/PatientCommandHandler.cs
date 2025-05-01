@@ -38,9 +38,6 @@ namespace HMS.Core.Features.Patients.Commands.Handlers
 
             patient.NameEn = request.NameEn;
             patient.NameAr = request.NameAr;
-            patient.Age = request.Age;
-            patient.Gender = request.Gender;
-            patient.ContactNumber = request.ContactNumber;
             patient.Address = request.Address;
 
             // we can just use this: request.Adapt(patient);
