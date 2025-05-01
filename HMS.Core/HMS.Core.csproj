@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HMS.Data\HMS.Data.csproj" />
-    <ProjectReference Include="..\HMS.Infrustructure\HMS.Infrustructure.csproj" />
     <ProjectReference Include="..\HMS.Service\HMS.Service.csproj" />
   </ItemGroup>
 

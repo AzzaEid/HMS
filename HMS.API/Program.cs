@@ -27,7 +27,8 @@ namespace HMS.API
             #region DI
             builder.Services.AddInfrustructureDependencies()
                             .AddServiceDependencies()
-                            .AddCoreDependencies();
+                            .AddCoreDependencies()
+                            .AddServiceRegistration(builder.Configuration);
             #endregion
 
 

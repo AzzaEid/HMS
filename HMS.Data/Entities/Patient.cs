@@ -1,8 +1,6 @@
-﻿using HMS.Data.Entities.Identity;
-
-namespace HMS.Data.Entities
+﻿namespace HMS.Data.Entities
 {
-    public class Patient : User
+    public class Patient : Person
     {
 
         public string Address { get; set; }
