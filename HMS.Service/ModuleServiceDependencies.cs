@@ -12,6 +12,8 @@ namespace HMS.Service
             services.AddTransient<IDoctorService, DoctorService>();
             services.AddTransient<IDepartmentService, DepartmentService>();
             services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
+
 
 
 
