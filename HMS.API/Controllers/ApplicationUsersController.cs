@@ -37,5 +37,11 @@ namespace HMS.API.Controllers
         {
             return NewResult(await Mediator.Send(new DeleteUserCommand(id)));
         }
+        [HttpPost("/change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
     }
 }
