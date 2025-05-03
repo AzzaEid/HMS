@@ -1,7 +1,6 @@
 ﻿using HMS.Data.Entities.Enums;
 using HMS.Data.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace HMS.Infrustructure.Seeder
 {
@@ -9,20 +8,29 @@ namespace HMS.Infrustructure.Seeder
     {
         public static async Task SeedAsync(UserManager<User> _userManager)
         {
-            var usersCount = await _userManager.Users.CountAsync();
-            if (usersCount <= 0)
+            string adminEmail = "admin@project.com";
+            var adminUser = await _userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
             {
                 var defaultuser = new User()
                 {
                     UserName = "admin",
-                    Email = "admin@project.com",
+                    Email = adminEmail,
                     ContactNumber = "123456",
                     Gender = Gender.Female,
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true
                 };
-                await _userManager.CreateAsync(defaultuser, "ALeid#123");
-                await _userManager.AddToRoleAsync(defaultuser, "Admin");
+                var result = await _userManager.CreateAsync(defaultuser, "ALeid#123");
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Field in seeding - create admin " + string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
+                result = await _userManager.AddToRoleAsync(defaultuser, "Admin");
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Field in seeding - asign admin role " + string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
             }
         }
     }

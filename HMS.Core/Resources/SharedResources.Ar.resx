@@ -168,6 +168,9 @@
   <data name="Required" xml:space="preserve">
     <value>هذا الحقل مطلوب.</value>
   </data>
+  <data name="RoleIsUsed" xml:space="preserve">
+    <value>الدور الذي تحاول حذفه مستخدم بالفعل</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>نجحت العملية.</value>
   </data>

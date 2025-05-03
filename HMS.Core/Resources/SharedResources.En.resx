@@ -171,6 +171,9 @@
   <data name="Required" xml:space="preserve">
     <value>This field is required.</value>
   </data>
+  <data name="RoleIsUsed" xml:space="preserve">
+    <value>Role is already used</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Operation was successful.</value>
   </data>

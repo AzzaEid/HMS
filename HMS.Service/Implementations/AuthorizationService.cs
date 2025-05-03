@@ -51,6 +51,31 @@ namespace HMS.Service.Implementations
             var errors = string.Join("-", result.Errors);
             return errors;
         }
+        public async Task<string> DeleteRoleAsync(int roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId.ToString());
+            if (role == null) return "NotFound";
+
+            var users = await _userManager.GetUsersInRoleAsync(role.Name);
+
+            if (users != null && users.Count() > 0) return "Used";
+
+            var result = await _roleManager.DeleteAsync(role);
+
+            if (result.Succeeded) return "Success";
+
+            var errors = string.Join(",", result.Errors);
+            return errors;
+        }
+
+        public async Task<bool> IsRoleExistById(int roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId.ToString());
+            if (role == null) return false;
+            else return true;
+        }
+
+
         #endregion
     }
 }

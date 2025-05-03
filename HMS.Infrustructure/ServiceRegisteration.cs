@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
 using System.Text;
 
 //using Microsoft.AspNetCore.Identity;
@@ -68,6 +69,7 @@ namespace HMS.Infrustructure
                    ValidAudience = jwtSettings.Audience,
                    ValidateAudience = jwtSettings.ValidateAudience,
                    ValidateLifetime = jwtSettings.ValidateLifeTime,
+                   RoleClaimType = ClaimTypes.Role
                };
            });
 
@@ -82,26 +84,28 @@ namespace HMS.Infrustructure
                     Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT"
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-            {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = JwtBearerDefaults.AuthenticationScheme
-                }
-            },
-            Array.Empty<string>()
-            }
-           });
+                    {
+                        {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme
+                            }
+                        },
+                    Array.Empty<string>()
+                    }
+                  });
             });
 
+            services.AddAuthorization();
 
             return services;
         }

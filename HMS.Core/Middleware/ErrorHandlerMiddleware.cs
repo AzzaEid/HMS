@@ -35,7 +35,7 @@ namespace HMS.Core.Middleware
                         responseModel.Message = error.Message;
                         responseModel.StatusCode = HttpStatusCode.BadRequest;
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        responseModel.Errors = e.Errors;
+                        responseModel.Errors = String.Join(",", e.Errors);
                         break;
                     case UnauthorizedAccessException e:
                         // custom application error
@@ -48,7 +48,7 @@ namespace HMS.Core.Middleware
                         responseModel.Message = error.Message;
                         responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;
                         response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
-                        responseModel.Errors = e.Errors.Select(x => $"{x.PropertyName}: {x.ErrorMessage}").ToList();
+                        responseModel.Errors = String.Join(",", e.Errors.Select(x => $"{x.PropertyName}: {x.ErrorMessage}").ToList());
                         break;
                     case KeyNotFoundException e:
                         // not found error
