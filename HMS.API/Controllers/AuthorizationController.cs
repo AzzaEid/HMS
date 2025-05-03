@@ -14,5 +14,11 @@ namespace HMS.API.Controllers
             var response = await Mediator.Send(command);
             return NewResult(response);
         }
+        [HttpPut("role")]
+        public async Task<IActionResult> Edit([FromForm] EditRoleCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
     }
 }

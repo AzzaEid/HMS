@@ -19,22 +19,22 @@ namespace HMS.Core.Bases
             Succeeded = (statusCode == HttpStatusCode.OK || statusCode == HttpStatusCode.Created) ? true : false;
             Message = message;
             StatusCode = statusCode;
-            Errors = new List<string>();
+            //  Errors = new List<string>();
         }
 
-        public Response(string message, HttpStatusCode statusCode, List<string> errors)
+        public Response(string message, HttpStatusCode statusCode, string errors)
         {
             Succeeded = false;
             Message = message;
             StatusCode = statusCode;
-            Errors = errors ?? new List<string>();
+            Errors = errors;
         }
 
         public HttpStatusCode StatusCode { get; set; }
         public object Meta { get; set; }
         public bool Succeeded { get; set; }
         public string Message { get; set; }
-        public List<string> Errors { get; set; }
+        public string Errors { get; set; }
         public T Data { get; set; }
     }
 

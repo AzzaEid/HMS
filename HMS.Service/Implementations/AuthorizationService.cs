@@ -1,4 +1,5 @@
 ﻿using HMS.Data.Entities.Identity;
+using HMS.Data.Requests;
 using HMS.Infrustructure.Data;
 using HMS.Service.Abstracts;
 using Microsoft.AspNetCore.Identity;
@@ -36,6 +37,19 @@ namespace HMS.Service.Implementations
         public async Task<bool> IsRoleExistByName(string roleName)
         {
             return await _roleManager.RoleExistsAsync(roleName);
+        }
+
+        public async Task<string> EditRoleAsync(EditRoleRequest request)
+        {
+            //check role is exist or not
+            var role = await _roleManager.FindByIdAsync(request.Id.ToString());
+            if (role == null)
+                return "notFound";
+            role.Name = request.Name;
+            var result = await _roleManager.UpdateAsync(role);
+            if (result.Succeeded) return "Success";
+            var errors = string.Join("-", result.Errors);
+            return errors;
         }
         #endregion
     }

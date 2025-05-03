@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddFailed" xml:space="preserve">
+    <value>فشلت الاضافة</value>
+  </data>
   <data name="AlgorithmIsWrong" xml:space="preserve">
     <value>خوارزمية التشفير غير صحيحة</value>
   </data>
@@ -157,10 +160,10 @@
     <value>كلمة المرور غير صحيحة </value>
   </data>
   <data name="RefreshTokenIsExpired" xml:space="preserve">
-    <value>Refresh Token Is Expired</value>
+    <value>انتهت صلاحية رمز التحديث</value>
   </data>
   <data name="RefreshTokenIsNotFound" xml:space="preserve">
-    <value>Refresh Token Is Not Found</value>
+    <value>لم يتم العثور على رمز التحديث</value>
   </data>
   <data name="Required" xml:space="preserve">
     <value>هذا الحقل مطلوب.</value>
@@ -169,7 +172,7 @@
     <value>نجحت العملية.</value>
   </data>
   <data name="TokenIsNotExpired" xml:space="preserve">
-    <value>Token Is Not Expired</value>
+    <value>رمز الوصول غير منتهي الصلاحية</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>غير مصرح لك بالقيام بهذه العملية!</value>
