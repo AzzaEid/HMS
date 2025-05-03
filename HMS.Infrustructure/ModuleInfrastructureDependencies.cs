@@ -14,6 +14,8 @@ namespace HMS.Infrustructure
             services.AddTransient<IDoctorRepository, DoctorRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddTransient<IAppointmentRepository, AppointmentRepository>();
+            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+
 
 
 

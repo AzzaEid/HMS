@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlgorithmIsWrong" xml:space="preserve">
+    <value>Algorithm Is Wrong</value>
+  </data>
   <data name="BadRequest" xml:space="preserve">
     <value>Bad request. Please check your input.</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="DeletedFailed" xml:space="preserve">
     <value>Deleted Failed</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>Email Not Confirmed</value>
   </data>
   <data name="IsExist" xml:space="preserve">
     <value>The item already exists.</value>
@@ -150,11 +156,23 @@
   <data name="NotFound" xml:space="preserve">
     <value>The item was not found.</value>
   </data>
+  <data name="PasswordNotCorrect" xml:space="preserve">
+    <value>Password is Not Correct</value>
+  </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>انتهت صلاحية رمز التحديث</value>
+  </data>
+  <data name="RefreshTokenIsNotFound" xml:space="preserve">
+    <value>لم يتم العثور على رمز التحديث</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>This field is required.</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Operation was successful.</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>رمز الوصول غير منتهي الصلاحية</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>You are not authorized to perform this action.</value>
@@ -164,5 +182,8 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>The item has been updated.</value>
+  </data>
+  <data name="UserNameIsNotExist" xml:space="preserve">
+    <value>User Is Not Exist</value>
   </data>
 </root>

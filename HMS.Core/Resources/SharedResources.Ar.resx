@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlgorithmIsWrong" xml:space="preserve">
+    <value>خوارزمية التشفير غير صحيحة</value>
+  </data>
   <data name="BadRequest" xml:space="preserve">
     <value>الطلب الذي أرسلته غير صالح.</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="DeletedFailed" xml:space="preserve">
     <value>حذف العنصر فشل</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>الإيميل غير مؤكد</value>
   </data>
   <data name="IsExist" xml:space="preserve">
     <value>العنصر موجود بالفعل.</value>
@@ -147,11 +153,23 @@
   <data name="NotFound" xml:space="preserve">
     <value>العنصر غير موجود.</value>
   </data>
+  <data name="PasswordNotCorrect" xml:space="preserve">
+    <value>كلمة المرور غير صحيحة </value>
+  </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>Refresh Token Is Expired</value>
+  </data>
+  <data name="RefreshTokenIsNotFound" xml:space="preserve">
+    <value>Refresh Token Is Not Found</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>هذا الحقل مطلوب.</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>نجحت العملية.</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>Token Is Not Expired</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>غير مصرح لك بالقيام بهذه العملية!</value>
@@ -161,5 +179,8 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>تم تحديث العنصر.</value>
+  </data>
+  <data name="UserNameIsNotExist" xml:space="preserve">
+    <value>المستخدم غير موجود</value>
   </data>
 </root>
