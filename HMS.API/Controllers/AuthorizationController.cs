@@ -6,9 +6,9 @@ namespace HMS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Authorization : AppControllerBase
+    public class AuthorizationController : AppControllerBase
     {
-        [HttpPost]
+        [HttpPost("role")]
         public async Task<IActionResult> Add([FromForm] AddRoleCommand command)
         {
             var response = await Mediator.Send(command);

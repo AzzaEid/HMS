@@ -1,8 +1,11 @@
 using HMS.Core;
 using HMS.Core.Middleware;
+using HMS.Data.Entities.Identity;
 using HMS.Infrustructure;
 using HMS.Infrustructure.Data;
+using HMS.Infrustructure.Seeder;
 using HMS.Service;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -12,7 +15,7 @@ namespace HMS.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +63,14 @@ namespace HMS.API
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+                await RoleSeeder.SeedAsync(roleManager);
+                await UserSeeder.SeedAsync(userManager);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
