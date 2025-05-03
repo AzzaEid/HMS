@@ -11,6 +11,7 @@ using Microsoft.Extensions.Localization;
 namespace HMS.Core.Features.Authentication.Commands.Handlers
 {
     public class AuthenticationCommandHandler : ResponseHandler, IRequestHandler<SignInCommand, Response<JwtAuthResult>>
+                                                               , IRequestHandler<RefreshTokenCommand, Response<JwtAuthResult>>
     {
 
         #region Fields
@@ -41,14 +42,34 @@ namespace HMS.Core.Features.Authentication.Commands.Handlers
             var signInResult = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
             if (!signInResult.Succeeded) return BadRequest<JwtAuthResult>($"{_stringLocalizer[SharedResourcesKeys.PasswordNotCorrect]} - ");
 
-            //confirm email
-            // if (!user.EmailConfirmed)
-            //   return BadRequest<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.EmailNotConfirmed]);
+            // confirm email
+            if (!user.EmailConfirmed)
+                return BadRequest<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.EmailNotConfirmed]);
             //Generate Token
             var result = await _authenticationService.GetJWTToken(user);
             //return Token 
             return Success(result);
         }
+        public async Task<Response<JwtAuthResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        {
+            var jwtToken = _authenticationService.ReadJWTToken(request.AccessToken);
+            var (userId, expiryDate) = await _authenticationService.ValidateDetails(jwtToken, request.AccessToken, request.RefreshToken);
+            switch (userId)
+            {
+                case ("AlgorithmIsWrong"): return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.AlgorithmIsWrong]);
+                case ("TokenIsNotExpired"): return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.TokenIsNotExpired]);
+                case ("RefreshTokenIsNotFound"): return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.RefreshTokenIsNotFound]);
+                case ("RefreshTokenIsExpired"): return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.RefreshTokenIsExpired]);
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound<JwtAuthResult>();
+            }
+            var result = await _authenticationService.GetRefreshToken(user, jwtToken, expiryDate, request.RefreshToken);
+            return Success(result);
+        }
+
         #endregion
 
     }

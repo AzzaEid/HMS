@@ -11,13 +11,13 @@ namespace HMS.Core.Bases
         {
             _stringLocalizer = stringLocalizer;
         }
-        public Response<T> Deleted<T>()
+        public Response<T> Deleted<T>(string Message = null)
         {
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = _stringLocalizer[SharedResourcesKeys.Deleted]
+                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.Deleted] : Message
             };
         }
         public Response<T> Success<T>(T entity, object Meta = null)
@@ -31,13 +31,13 @@ namespace HMS.Core.Bases
                 Meta = Meta
             };
         }
-        public Response<T> Unauthorized<T>()
+        public Response<T> Unauthorized<T>(string Message = null)
         {
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.Unauthorized,
                 Succeeded = true,
-                Message = _stringLocalizer[SharedResourcesKeys.UnAuthorized]
+                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.UnAuthorized] : Message
             };
         }
         public Response<T> BadRequest<T>(string Message = null)
@@ -49,15 +49,17 @@ namespace HMS.Core.Bases
                 Message = Message == null ? _stringLocalizer[SharedResourcesKeys.BadRequest] : Message
             };
         }
+
         public Response<T> UnprocessableEntity<T>(string Message = null)
         {
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.UnprocessableEntity,
                 Succeeded = false,
-                Message = Message == null ? "Unprocessable Entity" : Message
+                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.UnprocessableEntity] : Message
             };
         }
+
 
         public Response<T> NotFound<T>(string message = null)
         {
@@ -81,4 +83,5 @@ namespace HMS.Core.Bases
             };
         }
     }
+
 }
