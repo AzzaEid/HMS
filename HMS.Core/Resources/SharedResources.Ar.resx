@@ -171,6 +171,9 @@
   <data name="RoleIsUsed" xml:space="preserve">
     <value>الدور الذي تحاول حذفه مستخدم بالفعل</value>
   </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>الدور غير موجود</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>نجحت العملية.</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>تم تحديث العنصر.</value>
+  </data>
+  <data name="UserIsNotFound" xml:space="preserve">
+    <value>المستخدم غير موجود</value>
   </data>
   <data name="UserNameIsNotExist" xml:space="preserve">
     <value>المستخدم غير موجود</value>

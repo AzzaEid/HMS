@@ -72,12 +72,6 @@ namespace HMS.API
                 await UserSeeder.SeedAsync(userManager);
             }
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
             #region Localization Middleware
             var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
@@ -91,6 +85,14 @@ namespace HMS.API
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             app.MapControllers();
 

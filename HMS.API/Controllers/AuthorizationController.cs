@@ -1,34 +1,54 @@
 ﻿using HMS.API.Base;
 using HMS.Core.Features.Authorization.Commands.Models;
+using HMS.Core.Features.Authorization.Queries.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HMS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize(Roles = "Admin")]
     public class AuthorizationController : AppControllerBase
     {
-        [Authorize(Roles = "Admin")]
         [HttpPost("role")]
         public async Task<IActionResult> Add([FromForm] AddRoleCommand command)
         {
             var response = await Mediator.Send(command);
             return NewResult(response);
         }
-        [Authorize(Roles = "Admin")]
         [HttpPut("role")]
         public async Task<IActionResult> Edit([FromForm] EditRoleCommand command)
         {
             var response = await Mediator.Send(command);
             return NewResult(response);
         }
-        [Authorize(Roles = "Admin")]
+
         [HttpDelete("role/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var response = await Mediator.Send(new DeleteRoleCommand(id));
+            return NewResult(response);
+        }
+        [HttpGet("role")]
+        public async Task<IActionResult> GetRoleList()
+        {
+            var response = await Mediator.Send(new GetRolesListQuery());
+            return NewResult(response);
+        }
+        [HttpGet("role/{id}")]
+        public async Task<IActionResult> GetRoleById([FromRoute] int id)
+        {
+            var response = await Mediator.Send(new GetRoleByIdQuery() { Id = id });
+            return NewResult(response);
+        }
+
+        [SwaggerOperation(Summary = "Manage user roles", OperationId = "ManageUserRoles")]
+        [HttpGet("role/manage/{userId}")]
+        public async Task<IActionResult> ManageUserRoles([FromRoute] int userId)
+        {
+            var response = await Mediator.Send(new ManageUserRolesQuery() { UserId = userId });
             return NewResult(response);
         }
 

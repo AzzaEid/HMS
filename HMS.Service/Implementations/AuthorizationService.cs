@@ -1,8 +1,10 @@
 ﻿using HMS.Data.Entities.Identity;
 using HMS.Data.Requests;
+using HMS.Data.Results;
 using HMS.Infrustructure.Data;
 using HMS.Service.Abstracts;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace HMS.Service.Implementations
 {
@@ -73,6 +75,39 @@ namespace HMS.Service.Implementations
             var role = await _roleManager.FindByIdAsync(roleId.ToString());
             if (role == null) return false;
             else return true;
+        }
+
+        public async Task<List<Role>> GetRolesList()
+        {
+            return await _roleManager.Roles.ToListAsync();
+        }
+
+        public async Task<Role> GetRoleById(int id)
+        {
+            return await _roleManager.FindByIdAsync(id.ToString());
+        }
+
+        public async Task<ManageUserRolesResult> ManageUserRolesData(User user)
+        {
+            var roles = await _roleManager.Roles.ToListAsync();
+
+            var userRoles = new List<UserRoles>();
+            foreach (var role in roles)
+            {
+                var hasRole = await _userManager.IsInRoleAsync(user, role.Name);
+                userRoles.Add(new UserRoles
+                {
+                    Id = role.Id,
+                    Name = role.Name,
+                    HasRole = hasRole
+                });
+            }
+
+            return new ManageUserRolesResult
+            {
+                UserId = user.Id,
+                userRoles = userRoles
+            };
         }
 
 
