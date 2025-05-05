@@ -1,6 +1,6 @@
 ﻿using HMS.Core.Features.Appointments.Queries.Results;
 using HMS.Core.Wrappers;
-using HMS.Data.Helper;
+using HMS.Data.Helper.Enums;
 using MediatR;
 
 namespace HMS.Core.Features.Appointments.Queries.Models

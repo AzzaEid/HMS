@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddFailed" xml:space="preserve">
+    <value>فشلت الاضافة</value>
+  </data>
   <data name="AlgorithmIsWrong" xml:space="preserve">
     <value>خوارزمية التشفير غير صحيحة</value>
   </data>
@@ -134,6 +137,24 @@
   </data>
   <data name="EmailNotConfirmed" xml:space="preserve">
     <value>الإيميل غير مؤكد</value>
+  </data>
+  <data name="FailedToAddNewClaims" xml:space="preserve">
+    <value>فشل في اضافة الصلاحيات الجديدة</value>
+  </data>
+  <data name="FailedToAddNewRoles" xml:space="preserve">
+    <value>فشل في اضافة الأدوار الجديدة</value>
+  </data>
+  <data name="FailedToRemoveOldClaims" xml:space="preserve">
+    <value>فشل في ازالة الصلاحيات القديمة</value>
+  </data>
+  <data name="FailedToRemoveOldRoles" xml:space="preserve">
+    <value>فشل في حذف الادوار القديمة</value>
+  </data>
+  <data name="FailedToUpdateClaims" xml:space="preserve">
+    <value>فشل في تحديث الصلاحيات</value>
+  </data>
+  <data name="FailedToUpdateUserRoles" xml:space="preserve">
+    <value>فشل في تحديث الأدوار</value>
   </data>
   <data name="IsExist" xml:space="preserve">
     <value>العنصر موجود بالفعل.</value>
@@ -157,19 +178,25 @@
     <value>كلمة المرور غير صحيحة </value>
   </data>
   <data name="RefreshTokenIsExpired" xml:space="preserve">
-    <value>Refresh Token Is Expired</value>
+    <value>انتهت صلاحية رمز التحديث</value>
   </data>
   <data name="RefreshTokenIsNotFound" xml:space="preserve">
-    <value>Refresh Token Is Not Found</value>
+    <value>لم يتم العثور على رمز التحديث</value>
   </data>
   <data name="Required" xml:space="preserve">
     <value>هذا الحقل مطلوب.</value>
+  </data>
+  <data name="RoleIsUsed" xml:space="preserve">
+    <value>الدور الذي تحاول حذفه مستخدم بالفعل</value>
+  </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>الدور غير موجود</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>نجحت العملية.</value>
   </data>
   <data name="TokenIsNotExpired" xml:space="preserve">
-    <value>Token Is Not Expired</value>
+    <value>رمز الوصول غير منتهي الصلاحية</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>غير مصرح لك بالقيام بهذه العملية!</value>
@@ -179,6 +206,9 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>تم تحديث العنصر.</value>
+  </data>
+  <data name="UserIsNotFound" xml:space="preserve">
+    <value>المستخدم غير موجود</value>
   </data>
   <data name="UserNameIsNotExist" xml:space="preserve">
     <value>المستخدم غير موجود</value>

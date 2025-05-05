@@ -2,6 +2,7 @@
 using HMS.Core.Features.Doctors.Commands.Modles;
 using HMS.Core.Features.Doctors.Queries.Models;
 using HMS.Data.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.API.Controllers
@@ -21,7 +22,7 @@ namespace HMS.API.Controllers
         {
             return NewResult(await Mediator.Send(new GetDoctorByIdQuery { Id = id }));
         }
-
+        [Authorize(Policy = "CreateDoctor")]
         [HttpPost]
         public async Task<IActionResult> CreateDoctor(CreateDoctorCommand command)
         {

@@ -40,13 +40,14 @@ namespace HMS.Core.Bases
                 Message = Message == null ? _stringLocalizer[SharedResourcesKeys.UnAuthorized] : Message
             };
         }
-        public Response<T> BadRequest<T>(string Message = null)
+        public Response<T> BadRequest<T>(string Message = null, string Error = null)
         {
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.BadRequest,
                 Succeeded = false,
-                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.BadRequest] : Message
+                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.BadRequest] : Message,
+                Errors = Error
             };
         }
 

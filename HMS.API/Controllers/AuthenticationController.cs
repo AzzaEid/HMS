@@ -9,19 +9,19 @@ namespace HMS.API.Controllers
     [ApiController]
     public class AuthenticationController : AppControllerBase
     {
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> SignIn([FromForm] SignInCommand command)
         {
             var response = await Mediator.Send(command);
             return NewResult(response);
         }
-        [HttpPost("/refresh-token")]
+        [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromForm] RefreshTokenCommand command)
         {
             var response = await Mediator.Send(command);
             return NewResult(response);
         }
-        [HttpGet("/validate-token")]
+        [HttpGet("validate-token")]
         public async Task<IActionResult> ValidateToken([FromQuery] AuthorizeUserQuery query)
         {
             var response = await Mediator.Send(query);

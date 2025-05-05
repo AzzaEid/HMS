@@ -1,5 +1,5 @@
 ﻿using HMS.Data.Entities;
-using HMS.Data.Helper;
+using HMS.Data.Helper.Enums;
 
 namespace HMS.Service.Abstracts
 {

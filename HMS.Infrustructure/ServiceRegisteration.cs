@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
 using System.Text;
 
 //using Microsoft.AspNetCore.Identity;
@@ -68,6 +69,7 @@ namespace HMS.Infrustructure
                    ValidAudience = jwtSettings.Audience,
                    ValidateAudience = jwtSettings.ValidateAudience,
                    ValidateLifetime = jwtSettings.ValidateLifeTime,
+                   RoleClaimType = ClaimTypes.Role
                };
            });
 
@@ -83,23 +85,41 @@ namespace HMS.Infrustructure
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                    Scheme = "bearer",
+                    BearerFormat = "JWT"
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme
+                            }
+                        },
+                    Array.Empty<string>()
+                    }
+                  });
+            });
+
+
+            services.AddAuthorization(option =>
             {
-            {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
+                option.AddPolicy("CreateDoctor", policy =>
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = JwtBearerDefaults.AuthenticationScheme
-                }
-            },
-            Array.Empty<string>()
-            }
-           });
+                    policy.RequireClaim("Create Doctor", "True");
+                });
+                option.AddPolicy("DeleteDoctor", policy =>
+                {
+                    policy.RequireClaim("Delete Doctor", "True");
+                });
+                option.AddPolicy("EditDoctor", policy =>
+                {
+                    policy.RequireClaim("Edit Doctor", "True");
+                });
             });
 
 
