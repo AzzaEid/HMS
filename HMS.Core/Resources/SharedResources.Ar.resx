@@ -138,11 +138,20 @@
   <data name="EmailNotConfirmed" xml:space="preserve">
     <value>الإيميل غير مؤكد</value>
   </data>
+  <data name="FailedToAddNewClaims" xml:space="preserve">
+    <value>فشل في اضافة الصلاحيات الجديدة</value>
+  </data>
   <data name="FailedToAddNewRoles" xml:space="preserve">
     <value>فشل في اضافة الأدوار الجديدة</value>
   </data>
+  <data name="FailedToRemoveOldClaims" xml:space="preserve">
+    <value>فشل في ازالة الصلاحيات القديمة</value>
+  </data>
   <data name="FailedToRemoveOldRoles" xml:space="preserve">
     <value>فشل في حذف الادوار القديمة</value>
+  </data>
+  <data name="FailedToUpdateClaims" xml:space="preserve">
+    <value>فشل في تحديث الصلاحيات</value>
   </data>
   <data name="FailedToUpdateUserRoles" xml:space="preserve">
     <value>فشل في تحديث الأدوار</value>

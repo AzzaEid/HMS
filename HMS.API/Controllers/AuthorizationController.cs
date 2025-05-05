@@ -63,6 +63,12 @@ namespace HMS.API.Controllers
             var response = await Mediator.Send(new ManageUserClaimsQuery() { UserId = userId });
             return NewResult(response);
         }
+        [HttpPost("claim/update")]
+        public async Task<IActionResult> UpateUserClaims([FromBody] UpdateUserClaimsCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
 
     }
 }

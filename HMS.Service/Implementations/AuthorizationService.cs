@@ -6,6 +6,7 @@ using HMS.Infrustructure.Data;
 using HMS.Service.Abstracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace HMS.Service.Implementations
 {
@@ -175,6 +176,42 @@ namespace HMS.Service.Implementations
             //return Result
             return response;
         }
+        public async Task<string> UpdateUserClaims(UpdateUserClaimsRequest request)
+        {
+            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+                if (user is null)
+                    return "UserNotFound";
+
+                // Remove old claims
+                var oldClaims = await _userManager.GetClaimsAsync(user);
+                var removeResult = await _userManager.RemoveClaimsAsync(user, oldClaims);
+                if (!removeResult.Succeeded)
+                    return "RemoveClaimsFailed";
+
+                // Add new claims where Value is true
+                var newClaims = request.userClaims
+                    .Where(c => c.Value)
+                    .Select(c => new Claim(c.Type, "true")) // or some meaningful value
+                    .ToList();
+
+                var addResult = await _userManager.AddClaimsAsync(user, newClaims);
+                if (!addResult.Succeeded)
+                    return "AddClaimsFailed";
+
+                await transaction.CommitAsync();
+                return "Success";
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                return "UpdateFailed";
+            }
+        }
+
 
         #endregion
     }
