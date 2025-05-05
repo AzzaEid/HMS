@@ -105,7 +105,23 @@ namespace HMS.Infrustructure
                   });
             });
 
-            services.AddAuthorization();
+
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("CreateDoctor", policy =>
+                {
+                    policy.RequireClaim("Create Doctor", "True");
+                });
+                option.AddPolicy("DeleteDoctor", policy =>
+                {
+                    policy.RequireClaim("Delete Doctor", "True");
+                });
+                option.AddPolicy("EditDoctor", policy =>
+                {
+                    policy.RequireClaim("Edit Doctor", "True");
+                });
+            });
+
 
             return services;
         }
