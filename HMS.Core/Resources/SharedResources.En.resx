@@ -138,6 +138,15 @@
   <data name="EmailNotConfirmed" xml:space="preserve">
     <value>Email Not Confirmed</value>
   </data>
+  <data name="FailedToAddNewRoles" xml:space="preserve">
+    <value>Failed To Add New Roles</value>
+  </data>
+  <data name="FailedToRemoveOldRoles" xml:space="preserve">
+    <value>Failed To Remove Old Roles</value>
+  </data>
+  <data name="FailedToUpdateUserRoles" xml:space="preserve">
+    <value>Failed To Update User Roles</value>
+  </data>
   <data name="IsExist" xml:space="preserve">
     <value>The item already exists.</value>
   </data>

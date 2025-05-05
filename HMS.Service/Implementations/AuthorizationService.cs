@@ -13,6 +13,7 @@ namespace HMS.Service.Implementations
         #region Fields
         private readonly RoleManager<Role> _roleManager;
         private readonly UserManager<User> _userManager;
+        private readonly ApplicationDBContext _dbContext;
         #endregion
         #region Constructors
         public AuthorizationService(RoleManager<Role> roleManager,
@@ -21,6 +22,7 @@ namespace HMS.Service.Implementations
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _dbContext = dbContext;
         }
 
 
@@ -109,6 +111,41 @@ namespace HMS.Service.Implementations
                 userRoles = userRoles
             };
         }
+        public async Task<string> UpdateUserRoles(UpdateUserRolesRequest request)
+        {
+            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+                if (user is null)
+                    return "UserNotFound";
+
+                var currentRoles = await _userManager.GetRolesAsync(user);
+
+                var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+                if (!removeResult.Succeeded)
+                    return "RemoveRolesFailed";
+
+                var newRoles = request.userRoles
+                    .Where(r => r.HasRole)
+                    .Select(r => r.Name)
+                    .ToList();
+
+                var addResult = await _userManager.AddToRolesAsync(user, newRoles);
+                if (!addResult.Succeeded)
+                    return "AddRolesFailed";
+
+                await transaction.CommitAsync();
+                return "Success";
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                return "UpdateFailed";
+            }
+        }
+
 
 
         #endregion
