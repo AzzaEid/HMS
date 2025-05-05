@@ -1,4 +1,5 @@
 ﻿using HMS.Data.Entities.Identity;
+using HMS.Data.Helper;
 using HMS.Data.Requests;
 using HMS.Data.Results;
 using HMS.Infrustructure.Data;
@@ -27,7 +28,7 @@ namespace HMS.Service.Implementations
 
 
         #endregion
-        #region handle Functions
+        #region Roles 
         public async Task<bool> AddRoleAsync(string roleName)
         {
             var identityRole = new Role();
@@ -88,7 +89,8 @@ namespace HMS.Service.Implementations
         {
             return await _roleManager.FindByIdAsync(id.ToString());
         }
-
+        #endregion
+        #region User roles
         public async Task<ManageUserRolesResult> ManageUserRolesData(User user)
         {
             var roles = await _roleManager.Roles.ToListAsync();
@@ -145,8 +147,34 @@ namespace HMS.Service.Implementations
                 return "UpdateFailed";
             }
         }
+        #endregion
 
-
+        #region Manage Claims
+        public async Task<ManageUserClaimsResult> ManageUserClaimData(User user)
+        {
+            var response = new ManageUserClaimsResult();
+            var usercliamsList = new List<UserClaims>();
+            response.UserId = user.Id;
+            //Get USer Claims
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            foreach (var claim in ClaimsStore.claims)
+            {
+                var userclaim = new UserClaims();
+                userclaim.Type = claim.Type;
+                if (userClaims.Any(x => x.Type == claim.Type))
+                {
+                    userclaim.Value = true;
+                }
+                else
+                {
+                    userclaim.Value = false;
+                }
+                usercliamsList.Add(userclaim);
+            }
+            response.userClaims = usercliamsList;
+            //return Result
+            return response;
+        }
 
         #endregion
     }

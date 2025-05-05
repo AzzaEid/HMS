@@ -1,4 +1,4 @@
-﻿namespace HMS.Data.Helper
+﻿namespace HMS.Data.Helper.Enums
 {
     public enum PatientOrderingEnum
     {
