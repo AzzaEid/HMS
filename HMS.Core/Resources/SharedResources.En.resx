@@ -195,6 +195,9 @@
   <data name="RoleNotExist" xml:space="preserve">
     <value>Role Not Exist</value>
   </data>
+  <data name="SendEmailFailed" xml:space="preserve">
+    <value>Send Email Failed</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Operation was successful.</value>
   </data>

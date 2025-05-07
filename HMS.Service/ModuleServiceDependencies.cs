@@ -14,9 +14,7 @@ namespace HMS.Service
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAuthorizationService, AuthorizationService>();
-
-
-
+            services.AddTransient<IEmailsService, EmailsService>();
 
 
             return services;
