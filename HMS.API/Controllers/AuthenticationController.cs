@@ -27,7 +27,12 @@ namespace HMS.API.Controllers
             var response = await Mediator.Send(query);
             return NewResult(response);
         }
-
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailQuery command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
 
     }
 }

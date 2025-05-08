@@ -28,7 +28,7 @@ namespace HMS.Core.Features.Emails.Commands.Handlers
             var response = await _emailsService.SendEmail(request.Email, request.Message, null);
             if (response == "Success")
                 return Success<string>("");
-            return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.SendEmailFailed]);
+            return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.SendEmailFailed], response);
         }
         #endregion
     }

@@ -11,6 +11,7 @@ namespace HMS.Service.Abstracts
         public Task<(string, DateTime?)> ValidateDetails(JwtSecurityToken jwtToken, string AccessToken, string RefreshToken);
         public Task<JwtAuthResult> GetRefreshToken(User user, JwtSecurityToken jwtToken, DateTime? expiryDate, string refreshToken);
         public Task<string> ValidateToken(string AccessToken);
+        public Task<string> ConfirmEmail(int? userId, string? code);
 
     }
 }
