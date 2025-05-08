@@ -56,7 +56,7 @@
         public const string NoImage = "NoImage";
         public const string FailedToUploadImage = "FailedToUploadImage";
         public const string MinLengthis2 = "MinLengthis2";
-
+        public const string GenrateTokenField = "GenrateTokenField";
 
 
     }

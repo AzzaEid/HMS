@@ -11,7 +11,6 @@ namespace HMS.Data.Entities.Identity
         public Gender Gender { get; set; }
         [MaxLength(10)]
         public string ContactNumber { get; set; }
-
         [InverseProperty(nameof(UserRefreshToken.user))]
         public virtual ICollection<UserRefreshToken> UserRefreshTokens { get; set; } = new HashSet<UserRefreshToken>();
     }

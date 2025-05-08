@@ -156,6 +156,9 @@
   <data name="FailedToUpdateUserRoles" xml:space="preserve">
     <value>Failed To Update User Roles</value>
   </data>
+  <data name="GenrateTokenField" xml:space="preserve">
+    <value>Genrate Token Field</value>
+  </data>
   <data name="IsExist" xml:space="preserve">
     <value>The item already exists.</value>
   </data>

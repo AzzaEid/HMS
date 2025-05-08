@@ -34,5 +34,29 @@ namespace HMS.API.Controllers
             return NewResult(response);
         }
 
+        [HttpPost("reset-password-request")]
+        public async Task<IActionResult> ResetPasswordRequest([FromQuery] ResetPasswordRequestCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
+
+        [HttpGet("reset-password")]
+        public IActionResult RedirectResetPassword([FromQuery] RedirectResetPassword query)
+        {
+            /// add front end reset page link here
+            //var encodedToken = System.Web.HttpUtility.UrlEncode(query.Token);
+            return Ok(query);
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
+
+
+
     }
 }

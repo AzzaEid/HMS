@@ -4,7 +4,9 @@ using HMS.Data.Results;
 using HMS.Infrustructure.Abstract;
 using HMS.Infrustructure.Data;
 using HMS.Service.Abstracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,18 +23,28 @@ namespace HMS.Service.Implementations
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDBContext _applicationDBContext;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly IEmailsService _emailsService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUrlHelper _urlHelper;
+
         #endregion
 
         #region Constructors
         public AuthenticationService(JwtSettings jwtSettings,
                                      UserManager<User> userManager,
                                      ApplicationDBContext applicationDBContext
-                                    , IRefreshTokenRepository refreshTokenRepository)
+                                    , IRefreshTokenRepository refreshTokenRepository,
+                                     IEmailsService emailsService,
+                                     IHttpContextAccessor httpContextAccessor,
+                                     IUrlHelper urlHelper)
         {
             _jwtSettings = jwtSettings;
             _userManager = userManager;
             _applicationDBContext = applicationDBContext;
             _refreshTokenRepository = refreshTokenRepository;
+            _emailsService = emailsService;
+            _httpContextAccessor = httpContextAccessor;
+            _urlHelper = urlHelper;
         }
 
 
@@ -210,7 +222,59 @@ namespace HMS.Service.Implementations
                 return string.Join(",", confirmEmail.Errors.Select(e => e.Description).ToList());
             return "Success";
         }
+        public async Task<string> SendResetPasswordCode(string Email)
+        {
+            var trans = await _applicationDBContext.Database.BeginTransactionAsync();
+            try
+            {
+                //user
+                var user = await _userManager.FindByEmailAsync(Email);
+                if (user == null)
+                    return "UserNotFound";
 
+                //Generate reset token
+                var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                if (resetToken == null)
+                    return "GenrateTokenField";
+                //var encodedToken = System.Web.HttpUtility.UrlEncode(resetToken);
+
+                var resquestAccessor = _httpContextAccessor.HttpContext.Request;
+                var returnUrl = resquestAccessor.Scheme + "://" + resquestAccessor.Host +
+                    _urlHelper.Action("RedirectResetPassword", "Authentication", new { Email = user.Email, Token = resetToken });
+                var message = $"Click the link to Reset Passsword:  <a href='{returnUrl}'>Click to reset</a>  \n {returnUrl} ";
+
+                //Send Code To  Email 
+                var emailResult = await _emailsService.SendEmail(user.Email, message, "Reset Password");
+                if (emailResult != "Success")
+                {
+                    await trans.RollbackAsync();
+                    return emailResult;
+                }
+                await trans.CommitAsync();
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                await trans.RollbackAsync();
+                return "Failed";
+            }
+        }
+        public async Task<string> ResetPassword(string Email, string token, string Password)
+        {
+            //Get User
+            var user = await _userManager.FindByEmailAsync(Email);
+            if (user == null)
+                return "UserNotFound";
+
+            var resetResult = await _userManager.ResetPasswordAsync(user, token, Password);
+            if (!resetResult.Succeeded)
+            {
+                return string.Join(",", resetResult.Errors.Select(e => e.Description).ToList());
+            }
+            return "Success";
+
+        }
 
         #endregion
     }

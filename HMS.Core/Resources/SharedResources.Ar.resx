@@ -156,6 +156,9 @@
   <data name="FailedToUpdateUserRoles" xml:space="preserve">
     <value>فشل في تحديث الأدوار</value>
   </data>
+  <data name="GenrateTokenField" xml:space="preserve">
+    <value>فشل انشاء رمز تحقق</value>
+  </data>
   <data name="IsExist" xml:space="preserve">
     <value>العنصر موجود بالفعل.</value>
   </data>
