@@ -3,6 +3,8 @@
 # 🏥 Hospital Management System - HMS (Clean Architecture - ASP.NET Core Web API)
 >#### **Status: In Progress 🚧**
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/AzzaEid/HMS)
+
 ## 📑 About the Project
 
 This project is a **Medical Management System API** designed using **Clean Architecture Principles** and built with **ASP.NET Core Web API**.  
