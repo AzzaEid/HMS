@@ -31,17 +31,18 @@ It demonstrates advanced backend engineering techniques covering **authenticatio
 This project follows a **Clean Architecture** pattern, separating concerns into:
 
 - **Domain Layer**: Entities and Core Logic
-- **Application Layer**: Use Cases, DTOs, Interfaces
+- **Core Layer**: CQRS pattern implementation, Mapping
+- **Service Layer**: Services 
 - **Infrastructure Layer**: Database Access, External Services
 - **Presentation Layer**: Web API Controllers
 
 With a strong focus on:
 
 - Dependency Injection (DI)
+- CQRS Pattern
 - Mediator Pattern
-- Repository & Unit of Work Pattern
 - Fluent Validation
-- AutoMapper
+- Mappester
 - Custom Response Wrappers
 - API Versioning & Routing Customization
 
@@ -133,7 +134,6 @@ You will cover and implement:
 - **Entity Framework Core** (Code-First, Migrations, Fluent API)
 - **SQL Server**
 - **Clean Architecture Principles**
-- **AutoMapper**
 - **Fluent Validation**
 - **Repository Pattern** & **Generic Repository**
 - **Custom Response Wrappers**
@@ -145,7 +145,6 @@ You will cover and implement:
 - **Email Sending with MailKit & SMTP**
 - **Password Reset via Email**
 - **Logging with Serilog**
-- **Git & GitHub** (Project versioning and push)
 - **Working with Stored Procedures, Views, Functions**
 - **Image Uploads and Management**
 
