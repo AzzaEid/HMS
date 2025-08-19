@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Serilog;
 
 namespace HMS.Core.Features.ApplicationUser.Queries.Handlers
 {
@@ -42,7 +43,7 @@ namespace HMS.Core.Features.ApplicationUser.Queries.Handlers
             var query = _userManager.Users.AsNoTracking().ProjectToType<GetUserPaginationReponse>();
 
             var paginatedList = await query.ToPaginatedListAsync(request.PageNumber, request.PageSize);
-
+            Log.Information("get all users");
             return paginatedList;
         }
 

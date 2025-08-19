@@ -22,6 +22,8 @@ namespace HMS.Infrustructure.Seeder
                     PhoneNumberConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(defaultuser, "ALeid#123");
+                await _userManager.AddToRoleAsync(defaultuser, "Admin");
+
                 if (!result.Succeeded)
                 {
                     throw new Exception("Field in seeding - create admin " + string.Join(", ", result.Errors.Select(e => e.Description)));

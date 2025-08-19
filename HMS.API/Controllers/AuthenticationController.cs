@@ -27,6 +27,35 @@ namespace HMS.API.Controllers
             var response = await Mediator.Send(query);
             return NewResult(response);
         }
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailQuery command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
+
+        [HttpPost("reset-password-request")]
+        public async Task<IActionResult> ResetPasswordRequest([FromQuery] ResetPasswordRequestCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
+
+        [HttpGet("reset-password")]
+        public IActionResult RedirectResetPassword([FromQuery] RedirectResetPassword query)
+        {
+            /// add front end reset page link here
+            //var encodedToken = System.Web.HttpUtility.UrlEncode(query.Token);
+            return Ok(query);
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
+
 
 
     }

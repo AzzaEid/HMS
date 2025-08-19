@@ -156,6 +156,9 @@
   <data name="FailedToUpdateUserRoles" xml:space="preserve">
     <value>Failed To Update User Roles</value>
   </data>
+  <data name="GenrateTokenField" xml:space="preserve">
+    <value>Genrate Token Field</value>
+  </data>
   <data name="IsExist" xml:space="preserve">
     <value>The item already exists.</value>
   </data>
@@ -167,9 +170,6 @@
   </data>
   <data name="MinLengthis2" xml:space="preserve">
     <value>The minimum length is 100 characters.</value>
-  </data>
-  <data name="nn" xml:space="preserve">
-    <value>nn</value>
   </data>
   <data name="NotEmpty" xml:space="preserve">
     <value>This field cannot be empty.</value>
@@ -195,8 +195,14 @@
   <data name="RoleNotExist" xml:space="preserve">
     <value>Role Not Exist</value>
   </data>
+  <data name="SendEmailFailed" xml:space="preserve">
+    <value>Send Email Failed</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Operation was successful.</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>TokenIsNotExpired</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>You are not authorized to perform this action.</value>
@@ -212,5 +218,80 @@
   </data>
   <data name="UserNameIsNotExist" xml:space="preserve">
     <value>User Is Not Exist</value>
+  </data>
+  <data name="PatientNotFound" xml:space="preserve">
+    <value>Patient is not Found</value>
+  </data>
+  <data name="DoctorNotFound" xml:space="preserve">
+    <value>Doctor is not Found</value>
+  </data>
+  <data name="PrescriptionNotFound" xml:space="preserve">
+    <value>Prescription is not Found</value>
+  </data>
+  <data name="InvalidPatientId" xml:space="preserve">
+    <value>Invalid Patient Id</value>
+  </data>
+  <data name="InvalidDoctorId" xml:space="preserve">
+    <value>Invalid Doctor Id</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Invalid Date</value>
+  </data>
+  <data name="MedicationRequired" xml:space="preserve">
+    <value>Medication Required</value>
+  </data>
+  <data name="InvalidMedicationIds" xml:space="preserve">
+    <value>Invalid Medication Ids</value>
+  </data>
+  <data name="InvalidId" xml:space="preserve">
+    <value>Invalid Id</value>
+  </data>
+  <data name="MedicationNameExists" xml:space="preserve">
+    <value>Medication Name Already Exists</value>
+  </data>
+  <data name="MedicationNotFound" xml:space="preserve">
+    <value>Medication is Not Found</value>
+  </data>
+  <data name="CannotDeleteMedicationWithPrescriptions" xml:space="preserve">
+    <value>Cannot Delete Medication With Prescriptions</value>
+  </data>
+  <data name="MaxLengthis200" xml:space="preserve">
+    <value>Max Length is 200</value>
+  </data>
+  <data name="QuantityMustBeGreaterThanZero" xml:space="preserve">
+    <value>Quantity Must Be Greater Than Zero</value>
+  </data>
+  <data name="PriceMustBeGreaterThanZero" xml:space="preserve">
+    <value>Price Must Be Greater Than Zero</value>
+  </data>
+  <data name="IDMustBeGreaterThanZero" xml:space="preserve">
+    <value>ID Must Be Greater Than Zero</value>
+  </data>
+  <data name="QuantityMustBeGreaterThanOrEqualToZero" xml:space="preserve">
+    <value>Quantity Must Be Greater Than Or Equal To Zero</value>
+  </data>
+  <data name="CannotUpdatePaidBill" xml:space="preserve">
+    <value>Cannot Update Paid  Bill</value>
+  </data>
+  <data name="BillAlreadyPaid" xml:space="preserve">
+    <value>Bill Already Paid</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Payment Failed</value>
+  </data>
+  <data name="BillPaidSuccessfully" xml:space="preserve">
+    <value>Bill Paid Successfully</value>
+  </data>
+  <data name="CannotDeletePaidBill" xml:space="preserve">
+    <value>CannotDeletePaidBill</value>
+  </data>
+  <data name="AmountMustBeGreaterThanZero" xml:space="preserve">
+    <value>Amount Must Be Greater Than Zero</value>
+  </data>
+  <data name="BillDateCannotBeFuture" xml:space="preserve">
+    <value>Bill Date Cannot Be Future</value>
+  </data>
+  <data name="Specialty Name Exists" xml:space="preserve">
+    <value>Specialty Name Exists</value>
   </data>
 </root>

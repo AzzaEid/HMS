@@ -1,11 +1,7 @@
-﻿using HMS.Infrustructure.Data;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using HMS.Data.Bases;
+using HMS.Infrustructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace HMS.Infrustructure.Bases
 {

@@ -1,10 +1,12 @@
-﻿using HMS.Data.Entities.Identity;
+﻿using HMS.Data.Abstract;
+using HMS.Data.Entities.Identity;
 using HMS.Data.Helper;
 using HMS.Data.Results;
-using HMS.Infrustructure.Abstract;
 using HMS.Infrustructure.Data;
 using HMS.Service.Abstracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,20 +21,33 @@ namespace HMS.Service.Implementations
         #region Fields
         private readonly JwtSettings _jwtSettings;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly ApplicationDBContext _applicationDBContext;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly IEmailsService _emailsService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUrlHelper _urlHelper;
+
         #endregion
 
         #region Constructors
         public AuthenticationService(JwtSettings jwtSettings,
                                      UserManager<User> userManager,
                                      ApplicationDBContext applicationDBContext
-                                    , IRefreshTokenRepository refreshTokenRepository)
+                                    , IRefreshTokenRepository refreshTokenRepository,
+                                     IEmailsService emailsService,
+                                     IHttpContextAccessor httpContextAccessor,
+                                     IUrlHelper urlHelper,
+                                     RoleManager<Role> roleManager)
         {
             _jwtSettings = jwtSettings;
             _userManager = userManager;
             _applicationDBContext = applicationDBContext;
             _refreshTokenRepository = refreshTokenRepository;
+            _emailsService = emailsService;
+            _httpContextAccessor = httpContextAccessor;
+            _urlHelper = urlHelper;
+            _roleManager = roleManager;
         }
 
 
@@ -94,22 +109,26 @@ namespace HMS.Service.Implementations
             randomNumberGenerate.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
-        public async Task<List<Claim>> GetClaims(User user)
+        public async Task<IEnumerable<Claim>> GetClaims(User user)
         {
+            var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Name,user.UserName),
-                new Claim(ClaimTypes.NameIdentifier,user.UserName),
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(nameof(UserClaimModel.Id), user.Id.ToString())
-            };
+
+            var roleClaims = new List<Claim>();
             foreach (var role in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                var roleObj = await _roleManager.FindByNameAsync(role);
+                roleClaims.AddRange(await _roleManager.GetClaimsAsync(roleObj));
             }
-            var userClaims = await _userManager.GetClaimsAsync(user);
-            claims.AddRange(userClaims);
+
+            var claims = userClaims
+                .Union(roleClaims)
+                .Union(new[] {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName)
+                });
+
+
             return claims;
         }
 
@@ -199,6 +218,69 @@ namespace HMS.Service.Implementations
             }
             var expirydate = userRefreshToken.ExpiryDate;
             return (userId, expirydate);
+        }
+        public async Task<string> ConfirmEmail(int? userId, string? code)
+        {
+            if (userId == null || code == null)
+                return "ErrorWhenConfirmEmail";
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var confirmEmail = await _userManager.ConfirmEmailAsync(user, code);
+            if (!confirmEmail.Succeeded)
+                return string.Join(",", confirmEmail.Errors.Select(e => e.Description).ToList());
+            return "Success";
+        }
+        public async Task<string> SendResetPasswordCode(string Email)
+        {
+            var trans = await _applicationDBContext.Database.BeginTransactionAsync();
+            try
+            {
+                //user
+                var user = await _userManager.FindByEmailAsync(Email);
+                if (user == null)
+                    return "UserNotFound";
+
+                //Generate reset token
+                var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                if (resetToken == null)
+                    return "GenrateTokenField";
+                //var encodedToken = System.Web.HttpUtility.UrlEncode(resetToken);
+
+                var resquestAccessor = _httpContextAccessor.HttpContext.Request;
+                var returnUrl = resquestAccessor.Scheme + "://" + resquestAccessor.Host +
+                    _urlHelper.Action("RedirectResetPassword", "Authentication", new { Email = user.Email, Token = resetToken });
+                var message = $"Click the link to Reset Passsword:  <a href='{returnUrl}'>Click to reset</a>  \n {returnUrl} ";
+
+                //Send Code To  Email 
+                var emailResult = await _emailsService.SendEmail(user.Email, message, "Reset Password");
+                if (emailResult != "Success")
+                {
+                    await trans.RollbackAsync();
+                    return emailResult;
+                }
+                await trans.CommitAsync();
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                await trans.RollbackAsync();
+                return "Failed";
+            }
+        }
+        public async Task<string> ResetPassword(string Email, string token, string Password)
+        {
+            //Get User
+            var user = await _userManager.FindByEmailAsync(Email);
+            if (user == null)
+                return "UserNotFound";
+
+            var resetResult = await _userManager.ResetPasswordAsync(user, token, Password);
+            if (!resetResult.Succeeded)
+            {
+                return string.Join(",", resetResult.Errors.Select(e => e.Description).ToList());
+            }
+            return "Success";
+
         }
 
         #endregion

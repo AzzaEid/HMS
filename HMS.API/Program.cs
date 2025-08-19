@@ -7,8 +7,12 @@ using HMS.Infrustructure.Seeder;
 using HMS.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Serilog;
 using System.Globalization;
 
 namespace HMS.API
@@ -57,6 +61,20 @@ namespace HMS.API
                 options.SupportedUICultures = supportedCultures;
             });
             #endregion
+
+            #region UrlHelper
+            builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            builder.Services.AddTransient<IUrlHelper>(x =>
+            {
+                var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = x.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+            });
+            #endregion
+
+            Log.Logger = new LoggerConfiguration()
+                                .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+            builder.Services.AddSerilog();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -68,8 +86,16 @@ namespace HMS.API
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+
                 await RoleSeeder.SeedAsync(roleManager);
+                await RoleClaimsSeeder.SeedAsync(roleManager);
                 await UserSeeder.SeedAsync(userManager);
+                await MedicationsSeeder.SeedAsync(context);
+                await SpecialtiesSeeder.SeedAsync(context);
+                await DepartmentsSeeder.SeedAsync(context);
+
+
             }
 
             #region Localization Middleware

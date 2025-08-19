@@ -156,6 +156,9 @@
   <data name="FailedToUpdateUserRoles" xml:space="preserve">
     <value>فشل في تحديث الأدوار</value>
   </data>
+  <data name="GenrateTokenField" xml:space="preserve">
+    <value>فشل انشاء رمز تحقق</value>
+  </data>
   <data name="IsExist" xml:space="preserve">
     <value>العنصر موجود بالفعل.</value>
   </data>
@@ -192,6 +195,9 @@
   <data name="RoleNotExist" xml:space="preserve">
     <value>الدور غير موجود</value>
   </data>
+  <data name="SendEmailFailed" xml:space="preserve">
+    <value>فشل ارسال الإيميل</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>نجحت العملية.</value>
   </data>
@@ -212,5 +218,80 @@
   </data>
   <data name="UserNameIsNotExist" xml:space="preserve">
     <value>المستخدم غير موجود</value>
+  </data>
+  <data name="PatientNotFound" xml:space="preserve">
+    <value>المريض غير موجود</value>
+  </data>
+  <data name="DoctorNotFound" xml:space="preserve">
+    <value>الطبيب غير موجود</value>
+  </data>
+  <data name="PrescriptionNotFound" xml:space="preserve">
+    <value>الوصفة الطبية غير موجودة</value>
+  </data>
+  <data name="InvalidPatientId" xml:space="preserve">
+    <value>نعرف المريض غير مقبول</value>
+  </data>
+  <data name="InvalidDoctorId" xml:space="preserve">
+    <value>معرف الطبيب غير صالح</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>تاريخ غير صالح </value>
+  </data>
+  <data name="MedicationRequired" xml:space="preserve">
+    <value>الدواء مطلوب</value>
+  </data>
+  <data name="InvalidMedicationIds" xml:space="preserve">
+    <value>معرفات الدواء غير صالحة</value>
+  </data>
+  <data name="InvalidId" xml:space="preserve">
+    <value>معرف غير صالح</value>
+  </data>
+  <data name="MedicationNameExists" xml:space="preserve">
+    <value>اسم الدواء موجود بالفعل</value>
+  </data>
+  <data name="MedicationNotFound" xml:space="preserve">
+    <value>الدواء غير موجود</value>
+  </data>
+  <data name="CannotDeleteMedicationWithPrescriptions" xml:space="preserve">
+    <value>لا يمكن حذف دواء مرتبط بوصفات</value>
+  </data>
+  <data name="MaxLengthis200" xml:space="preserve">
+    <value>الطول الأقصى هو 200 رمز</value>
+  </data>
+  <data name="QuantityMustBeGreaterThanZero" xml:space="preserve">
+    <value>يجب ان تكون الكمية أكبر من صفر للإضافة</value>
+  </data>
+  <data name="PriceMustBeGreaterThanZero" xml:space="preserve">
+    <value>السعر يجب ان يكون أكبر من صفر </value>
+  </data>
+  <data name="IDMustBeGreaterThanZero" xml:space="preserve">
+    <value>المعرف يجب ان يكون اكبر من صفر</value>
+  </data>
+  <data name="QuantityMustBeGreaterThanOrEqualToZero" xml:space="preserve">
+    <value>يجب ان تكون الكمية اكبر او يساوي صفر</value>
+  </data>
+  <data name="CannotUpdatePaidBill" xml:space="preserve">
+    <value> لا يمكن تحديث الفاتورة</value>
+  </data>
+  <data name="BillAlreadyPaid" xml:space="preserve">
+    <value>الفاتورة مدفوعة بالفعل </value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>فشلت عملية الدفع</value>
+  </data>
+  <data name="BillPaidSuccessfully" xml:space="preserve">
+    <value>تم دفع الفاتورة بنجاح</value>
+  </data>
+  <data name="CannotDeletePaidBill" xml:space="preserve">
+    <value>لا يمكن حذف الفاتورة المدفوعة</value>
+  </data>
+  <data name="AmountMustBeGreaterThanZero" xml:space="preserve">
+    <value>يجب ان تكون الكمية اكبر من صفر </value>
+  </data>
+  <data name="BillDateCannotBeFuture" xml:space="preserve">
+    <value>لا يمكن ان يكون تاريخ الفاتورة في المستقبل</value>
+  </data>
+  <data name="Specialty Name Exists" xml:space="preserve">
+    <value>التخصص موجود بالفعل</value>
   </data>
 </root>

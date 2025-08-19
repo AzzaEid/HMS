@@ -1,8 +1,8 @@
 ﻿using HMS.Core.Bases;
 using HMS.Core.Features.ApplicationUser.Commands.Models;
 using HMS.Core.Resources;
-using HMS.Data.Entities.Enums;
 using HMS.Data.Entities.Identity;
+using HMS.Service.Abstracts;
 using Mapster;
 using MapsterMapper;
 using MediatR;
@@ -24,8 +24,8 @@ namespace HMS.Core.Features.ApplicationUser.Commands.Handlers
         private readonly IStringLocalizer<SharedResources> _sharedResources;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        //    private readonly IEmailsService _emailsService;
-        //    private readonly IApplicationUserService _applicationUserService;
+        private readonly IEmailsService _emailsService;
+        private readonly IApplicationUserService _applicationUserService;
         #endregion
 
         #region Constructors
@@ -33,15 +33,15 @@ namespace HMS.Core.Features.ApplicationUser.Commands.Handlers
                                   IMapper mapper,
                                   UserManager<User> userManager,
                                   IHttpContextAccessor httpContextAccessor
-                                // ,IEmailsService emailsService,
-                                /* IApplicationUserService applicationUserService*/) : base(stringLocalizer)
+                                 , IEmailsService emailsService,
+                                 IApplicationUserService applicationUserService) : base(stringLocalizer)
         {
             _mapper = mapper;
             _sharedResources = stringLocalizer;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
-            //    _emailsService = emailsService;
-            //  _applicationUserService = applicationUserService;
+            _emailsService = emailsService;
+            _applicationUserService = applicationUserService;
         }
 
 
@@ -51,37 +51,20 @@ namespace HMS.Core.Features.ApplicationUser.Commands.Handlers
 
         public async Task<Response<string>> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            /*
+
             var identityUser = _mapper.Map<User>(request);
             //Create
-            var createResult = "EmailIsExist";//= await _applicationUserService.AddUserAsync(identityUser, request.Password);
+            var createResult = await _applicationUserService.AddUserAsync(identityUser, request.Password);
             switch (createResult)
             {
                 case "EmailIsExist": return BadRequest<string>(_sharedResources[SharedResourcesKeys.EmailIsExist]);
                 case "ErrorInCreateUser": return BadRequest<string>(_sharedResources[SharedResourcesKeys.FaildToAddUser]);
+                case "EmailSendFailed": return BadRequest<string>(_sharedResources[SharedResourcesKeys.SendEmailFailed]);
                 case "Failed": return BadRequest<string>(_sharedResources[SharedResourcesKeys.TryToRegisterAgain]);
-                case "Success": return Success<string>("");
+                case "Success": return Success<string>($"{identityUser.Id}");
                 default: return BadRequest<string>(createResult);
             }
-            */
-            var user = new User()
-            {
-                UserName = request.UserName,
-                Email = request.Email,
-                ContactNumber = request.ContactNumber,
-                Age = 10,
-                Gender = Gender.Female
-            };
-            //  request.Adapt<User>();
-            try
-            {
-                var result = await _userManager.CreateAsync(user, request.Password);
-                return Success($"{user.Id}");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
 
         }
 
