@@ -102,7 +102,7 @@ namespace HMS.Infrustructure.Migrations
                         .IsUnique()
                         .HasFilter("[ManagerDoctorId] IS NOT NULL");
 
-                    b.ToTable("Department");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("HMS.Data.Entities.Doctor", b =>

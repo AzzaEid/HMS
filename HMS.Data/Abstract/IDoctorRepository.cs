@@ -1,7 +1,7 @@
-﻿using HMS.Data.Entities;
-using HMS.Infrustructure.Bases;
+﻿using HMS.Data.Bases;
+using HMS.Data.Entities;
 
-namespace HMS.Infrustructure.Abstract
+namespace HMS.Data.Abstract
 {
     public interface IDoctorRepository : IGenericRepository<Doctor>
     {

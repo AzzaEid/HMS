@@ -86,8 +86,16 @@ namespace HMS.API
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+
                 await RoleSeeder.SeedAsync(roleManager);
+                await RoleClaimsSeeder.SeedAsync(roleManager);
                 await UserSeeder.SeedAsync(userManager);
+                await MedicationsSeeder.SeedAsync(context);
+                await SpecialtiesSeeder.SeedAsync(context);
+                await DepartmentsSeeder.SeedAsync(context);
+
+
             }
 
             #region Localization Middleware

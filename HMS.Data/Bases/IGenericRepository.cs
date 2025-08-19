@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HMS.Infrustructure.Bases
+namespace HMS.Data.Bases
 {
     public interface IGenericRepository<T> where T : class
     {

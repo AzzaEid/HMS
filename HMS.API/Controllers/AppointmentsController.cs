@@ -38,7 +38,7 @@ namespace HMS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Response<int>>> CreateAppointment(CreateAppointmentCommand command)
+        public async Task<ActionResult<Response<int>>> CreateAppointment([FromBody] CreateAppointmentCommand command)
         {
             return await Mediator.Send(command);
         }

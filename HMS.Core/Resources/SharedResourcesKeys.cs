@@ -58,6 +58,32 @@
         public const string MinLengthis2 = "MinLengthis2";
         public const string GenrateTokenField = "GenrateTokenField";
 
+        public const string PatientNotFound = "PatientNotFound";
+        public const string DoctorNotFound = "DoctorNotFound";
+        public const string PrescriptionNotFound = "PrescriptionNotFound";
+        public const string InvalidPatientId = "InvalidPatientId";
+        public const string InvalidDoctorId = "InvalidDoctorId";
+        public const string InvalidDate = "InvalidDate";
+        public const string InvalidMedicationIds = "InvalidMedicationIds";
+        public const string MedicationRequired = "MedicationRequired";
+        public const string InvalidId = "InvalidId";
+        public const string MedicationNameExists = "MedicationNameExists";
+        public const string MedicationNotFound = "MedicationNotFound";
+        public const string MaxLengthis200 = "MaxLengthis200";
+        public const string QuantityMustBeGreaterThanZero = "QuantityMustBeGreaterThanZero";
+        public const string PriceMustBeGreaterThanZero = "PriceMustBeGreaterThanZero";
+        public const string IDMustBeGreaterThanZero = "IDMustBeGreaterThanZero";
+        public const string QuantityMustBeGreaterThanOrEqualToZero = "QuantityMustBeGreaterThanOrEqualToZero";
+        public const string CannotDeleteMedicationWithPrescriptions = "CannotDeleteMedicationWithPrescriptions";
+        public const string CannotUpdatePaidBill = "CannotUpdatePaidBill";
+        public const string BillAlreadyPaid = "BillAlreadyPaid";
+        public const string PaymentFailed = "PaymentFailed";
+        public const string AmountMustBeGreaterThanZero = "AmountMustBeGreaterThanZero";
+        public const string BillPaidSuccessfully = "BillPaidSuccessfully";
+        public const string CannotDeletePaidBill = "CannotDeletePaidBill";
+        public const string BillDateCannotBeFuture = "BillDateCannotBeFuture";
+        public const string SpecialtyNameExists = "SpecialtyNameExists";
+
 
     }
 }

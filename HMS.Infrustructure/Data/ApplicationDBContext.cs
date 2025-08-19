@@ -27,6 +27,7 @@ namespace HMS.Infrustructure.Data
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Medication> Medications { get; set; }
         public DbSet<Bill> Bills { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,6 +1,5 @@
 ﻿using HMS.Data.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace HMS.Infrustructure.Seeder
 {
@@ -8,20 +7,17 @@ namespace HMS.Infrustructure.Seeder
     {
         public static async Task SeedAsync(RoleManager<Role> _roleManager)
         {
-            var rolesCount = await _roleManager.Roles.CountAsync();
-            if (rolesCount <= 0)
+            var roles = new[] { "Admin", "Doctor", "Patient", "Pharmacist", "Accountant" };
+
+            foreach (var role in roles)
             {
-
-                await _roleManager.CreateAsync(new Role()
+                if (!await _roleManager.RoleExistsAsync(role))
                 {
-                    Name = "Admin"
-                });
-                await _roleManager.CreateAsync(new Role()
-                {
-                    Name = "User"
-                });
+                    await _roleManager.CreateAsync(new Role { Name = role });
+                }
             }
-        }
 
+
+        }
     }
 }

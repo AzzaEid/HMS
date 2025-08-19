@@ -16,7 +16,10 @@ namespace HMS.Service
             services.AddTransient<IAuthorizationService, AuthorizationService>();
             services.AddTransient<IEmailsService, EmailsService>();
             services.AddTransient<IApplicationUserService, ApplicationUserService>();
-
+            services.AddScoped<IPrescriptionService, PrescriptionService>();
+            services.AddScoped<IMedicationService, MedicationService>();
+            services.AddScoped<IBillService, BillService>();
+            services.AddScoped<ISpecialtyService, SpecialtyService>();
 
 
             return services;

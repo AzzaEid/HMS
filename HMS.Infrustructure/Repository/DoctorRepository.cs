@@ -1,5 +1,5 @@
-﻿using HMS.Data.Entities;
-using HMS.Infrustructure.Abstract;
+﻿using HMS.Data.Abstract;
+using HMS.Data.Entities;
 using HMS.Infrustructure.Bases;
 using HMS.Infrustructure.Data;
 using Microsoft.EntityFrameworkCore;

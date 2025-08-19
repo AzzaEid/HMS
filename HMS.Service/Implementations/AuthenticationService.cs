@@ -1,7 +1,7 @@
-﻿using HMS.Data.Entities.Identity;
+﻿using HMS.Data.Abstract;
+using HMS.Data.Entities.Identity;
 using HMS.Data.Helper;
 using HMS.Data.Results;
-using HMS.Infrustructure.Abstract;
 using HMS.Infrustructure.Data;
 using HMS.Service.Abstracts;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +21,7 @@ namespace HMS.Service.Implementations
         #region Fields
         private readonly JwtSettings _jwtSettings;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly ApplicationDBContext _applicationDBContext;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IEmailsService _emailsService;
@@ -36,7 +37,8 @@ namespace HMS.Service.Implementations
                                     , IRefreshTokenRepository refreshTokenRepository,
                                      IEmailsService emailsService,
                                      IHttpContextAccessor httpContextAccessor,
-                                     IUrlHelper urlHelper)
+                                     IUrlHelper urlHelper,
+                                     RoleManager<Role> roleManager)
         {
             _jwtSettings = jwtSettings;
             _userManager = userManager;
@@ -45,6 +47,7 @@ namespace HMS.Service.Implementations
             _emailsService = emailsService;
             _httpContextAccessor = httpContextAccessor;
             _urlHelper = urlHelper;
+            _roleManager = roleManager;
         }
 
 
@@ -106,22 +109,26 @@ namespace HMS.Service.Implementations
             randomNumberGenerate.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
-        public async Task<List<Claim>> GetClaims(User user)
+        public async Task<IEnumerable<Claim>> GetClaims(User user)
         {
+            var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Name,user.UserName),
-                new Claim(ClaimTypes.NameIdentifier,user.UserName),
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(nameof(UserClaimModel.Id), user.Id.ToString())
-            };
+
+            var roleClaims = new List<Claim>();
             foreach (var role in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                var roleObj = await _roleManager.FindByNameAsync(role);
+                roleClaims.AddRange(await _roleManager.GetClaimsAsync(roleObj));
             }
-            var userClaims = await _userManager.GetClaimsAsync(user);
-            claims.AddRange(userClaims);
+
+            var claims = userClaims
+                .Union(roleClaims)
+                .Union(new[] {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName)
+                });
+
+
             return claims;
         }
 
